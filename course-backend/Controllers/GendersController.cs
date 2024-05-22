@@ -17,39 +17,39 @@ public class GendersController : ControllerBase
 
     [HttpGet]
     [HttpGet("list")]
-    public List<Gender> GetAllGenders()
+    public ActionResult<List<Gender>> GetAllGenders()
     {
         return _repository.GetAllGenders();
     }
     
     [HttpGet("{genderId:int}")]
-    public Gender GetGenderById(int genderId)
+    public ActionResult<Gender> GetGenderById(int genderId)
     {
         var gender = _repository.GetGenderById(genderId);
 
         if (gender is null)
         {
-            //return NotFound();
+            return NotFound();
         }
 
         return gender;
     }
 
     [HttpPost]
-    public void Post()
+    public ActionResult Post()
     {
-
+        return NoContent();
     }
     
     [HttpPut]
-    public void Put()
+    public ActionResult Put()
     {
-
+        return NoContent();
     }
     
     [HttpDelete]
-    public void Delete()
+    public ActionResult Delete()
     {
-
+        return NoContent();
     }
 }
