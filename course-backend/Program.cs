@@ -2,6 +2,7 @@
 using course_backend.Interfaces.Repositories;
 using course_backend.Middlewares;
 using course_backend.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace course_backend
 {
@@ -10,6 +11,9 @@ namespace course_backend
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
+            builder.Services.AddResponseCaching();
 
             // Add services to the container.
 
@@ -21,7 +25,7 @@ namespace course_backend
 
             var app = builder.Build();
 
-            app.UseMiddleware<LoggingMiddleware>();
+            //app.UseMiddleware<LoggingMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -32,8 +36,13 @@ namespace course_backend
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseRouting();
 
+            app.UseResponseCaching();
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.MapControllers();
 

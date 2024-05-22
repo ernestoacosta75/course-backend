@@ -1,5 +1,7 @@
 ﻿using course_backend.Entities;
 using course_backend.Interfaces.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -7,6 +9,7 @@ namespace course_backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class GendersController : ControllerBase
 {
     private readonly IRepository _repository;
@@ -20,6 +23,7 @@ public class GendersController : ControllerBase
 
     [HttpGet]
     [HttpGet("list")]
+    // [ResponseCache(Duration = 60)] // This won't work if in the request headers is present Authorization
     public ActionResult<List<Gender>> GetAllGenders()
     {
         _logger.LogInformation("Fetching all the genders");
