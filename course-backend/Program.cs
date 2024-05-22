@@ -1,5 +1,6 @@
 
 using course_backend.Interfaces.Repositories;
+using course_backend.Middlewares;
 using course_backend.Repositories;
 
 namespace course_backend
@@ -19,6 +20,8 @@ namespace course_backend
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            app.UseMiddleware<LoggingMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
