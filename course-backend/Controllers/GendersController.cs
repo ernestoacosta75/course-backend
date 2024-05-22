@@ -6,22 +6,23 @@ namespace course_backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class GenderController : ControllerBase
+public class GendersController : ControllerBase
 {
     private readonly IRepository _repository;
 
-    public GenderController(IRepository repository)
+    public GendersController(IRepository repository)
     {
         _repository = repository;
     }
 
     [HttpGet]
+    [HttpGet("list")]
     public List<Gender> GetAllGenders()
     {
         return _repository.GetAllGenders();
     }
     
-    [HttpGet]
+    [HttpGet("{genderId:int}")]
     public Gender GetGenderById(int genderId)
     {
         var gender = _repository.GetGenderById(genderId);
