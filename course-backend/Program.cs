@@ -1,4 +1,7 @@
 
+using course_backend.Interfaces.Repositories;
+using course_backend.Repositories;
+
 namespace course_backend
 {
     public class Program
@@ -9,6 +12,7 @@ namespace course_backend
 
             // Add services to the container.
 
+            builder.Services.AddTransient<IRepository, InMemoryRepository>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

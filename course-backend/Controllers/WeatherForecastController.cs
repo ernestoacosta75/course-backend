@@ -1,3 +1,5 @@
+using course_backend.Interfaces.Repositories;
+using course_backend.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace course_backend.Controllers
@@ -12,15 +14,20 @@ namespace course_backend.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IRepository _inMemoryRepository;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger,
+            IRepository inMemoryRepository)
         {
             _logger = logger;
+            _inMemoryRepository = inMemoryRepository;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+            var gendersList = _inMemoryRepository.GetAllGenders();
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
