@@ -5,14 +5,17 @@ namespace course_backend.Repositories;
 
 public class InMemoryRepository : IRepository
 {
+    private readonly ILogger<InMemoryRepository> _logger;
     private List<Gender> _genders;
-    public InMemoryRepository()
+    public InMemoryRepository(ILogger<InMemoryRepository> logger)
     {
         _genders = new List<Gender>() 
         {
             new Gender() { Id = 1, Name = "Comedy" },
             new Gender() { Id = 2, Name = "Action" }
         };
+
+        _logger = logger;
     }
 
     public List<Gender> GetAllGenders()

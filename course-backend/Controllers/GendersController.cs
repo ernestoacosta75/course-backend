@@ -10,22 +10,28 @@ namespace course_backend.Controllers;
 public class GendersController : ControllerBase
 {
     private readonly IRepository _repository;
+    private readonly ILogger<GendersController> _logger;
 
-    public GendersController(IRepository repository)
+    public GendersController(IRepository repository, ILogger<GendersController> logger)
     {
         _repository = repository;
+        _logger = logger;
     }
 
     [HttpGet]
     [HttpGet("list")]
     public ActionResult<List<Gender>> GetAllGenders()
     {
+        _logger.LogInformation("Fetching all the genders");
+
         return _repository.GetAllGenders();
     }
     
     [HttpGet("{genderId:int}")]
     public async Task<ActionResult<Gender>> GetGenderById(int genderId, [FromHeader] string name)
     {
+        _logger.LogDebug($"Fetching the gender with id: {genderId}");
+
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
@@ -35,6 +41,7 @@ public class GendersController : ControllerBase
 
         if (gender is null)
         {
+            _logger.LogWarning($"There isn't any gender with id: {genderId}");
             return NotFound();
         }
 
