@@ -1,6 +1,7 @@
 ﻿using course_backend.Entities;
 using course_backend.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace course_backend.Controllers;
 
@@ -23,8 +24,13 @@ public class GendersController : ControllerBase
     }
     
     [HttpGet("{genderId:int}")]
-    public async Task<ActionResult<Gender>> GetGenderById(int genderId)
+    public async Task<ActionResult<Gender>> GetGenderById(int genderId, [FromHeader] string name)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         var gender = await _repository.GetGenderById(genderId);
 
         if (gender is null)
@@ -36,13 +42,13 @@ public class GendersController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult Post()
+    public ActionResult Post([FromBody] Gender gender)
     {
         return NoContent();
     }
     
     [HttpPut]
-    public ActionResult Put()
+    public ActionResult Put([FromBody] Gender gender)
     {
         return NoContent();
     }

@@ -22,7 +22,7 @@ public class InMemoryRepository : IRepository
 
     public async Task<Gender> GetGenderById(int genderId)
     {
-        Task.Delay(TimeSpan.FromSeconds(3));
+        Task.Delay(TimeSpan.FromSeconds(1));
         return _genders.FirstOrDefault(g => g.Id == genderId);
     }
 }
