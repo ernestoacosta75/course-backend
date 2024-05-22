@@ -20,8 +20,9 @@ public class InMemoryRepository : IRepository
         return _genders;
     }
 
-    public Gender GetGenderById(int genderId)
+    public async Task<Gender> GetGenderById(int genderId)
     {
+        Task.Delay(TimeSpan.FromSeconds(3));
         return _genders.FirstOrDefault(g => g.Id == genderId);
     }
 }

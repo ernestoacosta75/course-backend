@@ -23,9 +23,9 @@ public class GendersController : ControllerBase
     }
     
     [HttpGet("{genderId:int}")]
-    public ActionResult<Gender> GetGenderById(int genderId)
+    public async Task<ActionResult<Gender>> GetGenderById(int genderId)
     {
-        var gender = _repository.GetGenderById(genderId);
+        var gender = await _repository.GetGenderById(genderId);
 
         if (gender is null)
         {

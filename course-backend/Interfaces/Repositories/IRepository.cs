@@ -5,5 +5,5 @@ namespace course_backend.Interfaces.Repositories;
 public interface IRepository
 {
     List<Gender> GetAllGenders();
-    Gender GetGenderById(int genderId);
+    Task<Gender> GetGenderById(int genderId);
 }
