@@ -1,9 +1,12 @@
-﻿using course_backend.Interfaces.Repositories;
+﻿using course_backend.Entities;
+using course_backend.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace course_backend.Controllers;
 
-public class GenderController : Controller
+[ApiController]
+[Route("api/[controller]")]
+public class GenderController : ControllerBase
 {
     private readonly IRepository _repository;
 
@@ -11,8 +14,41 @@ public class GenderController : Controller
     {
         _repository = repository;
     }
-    public IActionResult Index()
+
+    [HttpGet]
+    public List<Gender> GetAllGenders()
     {
-        return View();
+        return _repository.GetAllGenders();
+    }
+    
+    [HttpGet]
+    public Gender GetGenderById(int genderId)
+    {
+        var gender = _repository.GetGenderById(genderId);
+
+        if (gender is null)
+        {
+            //return NotFound();
+        }
+
+        return gender;
+    }
+
+    [HttpPost]
+    public void Post()
+    {
+
+    }
+    
+    [HttpPut]
+    public void Put()
+    {
+
+    }
+    
+    [HttpDelete]
+    public void Delete()
+    {
+
     }
 }

@@ -19,4 +19,9 @@ public class InMemoryRepository : IRepository
     {
         return _genders;
     }
+
+    public Gender GetGenderById(int genderId)
+    {
+        return _genders.FirstOrDefault(g => g.Id == genderId);
+    }
 }
