@@ -1,7 +1,5 @@
 
 using course_backend.Filters;
-using course_backend.Interfaces.Repositories;
-using course_backend.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace course_backend
@@ -13,12 +11,12 @@ namespace course_backend
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
-            builder.Services.AddResponseCaching();
+            //builder.Services.AddResponseCaching();
 
             // Add services to the container.
 
             //builder.Services.AddTransient<IRepository, InMemoryRepository>();
-            builder.Services.AddTransient<CustomActionFilter>();
+            //builder.Services.AddTransient<CustomActionFilter>();
             builder.Services.AddControllers(options =>
             {
                 options.Filters.Add(typeof(ExceptionFilter));
@@ -42,7 +40,7 @@ namespace course_backend
 
             app.UseRouting();
 
-            app.UseResponseCaching();
+            //app.UseResponseCaching();
 
             app.UseAuthentication();
 
