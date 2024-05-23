@@ -17,7 +17,7 @@ namespace course_backend
 
             // Add services to the container.
 
-            builder.Services.AddTransient<IRepository, InMemoryRepository>();
+            //builder.Services.AddTransient<IRepository, InMemoryRepository>();
             builder.Services.AddTransient<CustomActionFilter>();
             builder.Services.AddControllers(options =>
             {

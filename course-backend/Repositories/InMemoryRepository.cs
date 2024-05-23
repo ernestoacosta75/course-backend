@@ -3,7 +3,7 @@ using course_backend.Interfaces.Repositories;
 
 namespace course_backend.Repositories;
 
-public class InMemoryRepository : IRepository
+public class InMemoryRepository // : IRepository
 {
     private readonly ILogger<InMemoryRepository> _logger;
     private List<Gender> _genders;

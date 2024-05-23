@@ -2,8 +2,11 @@
 
 namespace course_backend.Interfaces.Repositories;
 
-public interface IRepository
+public interface IRepository<TEntity> where TEntity : class
 {
-    List<Gender> GetAllGenders();
-    Task<Gender> GetGenderById(int genderId);
+    TEntity GetById(int id);
+    IEnumerable<TEntity> GetAll();
+    void Add(TEntity entity);
+    void Update(TEntity entity);
+    void Delete(TEntity entity);
 }

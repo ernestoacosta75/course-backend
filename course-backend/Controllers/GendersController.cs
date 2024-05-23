@@ -1,6 +1,4 @@
 ﻿using course_backend.Entities;
-using course_backend.Filters;
-using course_backend.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace course_backend.Controllers;
@@ -10,63 +8,42 @@ namespace course_backend.Controllers;
 //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class GendersController : ControllerBase
 {
-    private readonly IRepository _repository;
     private readonly ILogger<GendersController> _logger;
 
-    public GendersController(IRepository repository, ILogger<GendersController> logger)
+    public GendersController(ILogger<GendersController> logger)
     {
-        _repository = repository;
         _logger = logger;
     }
 
     [HttpGet]
-    [HttpGet("list")]
-    // [ResponseCache(Duration = 60)] // This won't work if in the request headers is present Authorization
-    [ServiceFilter(typeof(CustomActionFilter))]
     public ActionResult<List<Gender>> GetAllGenders()
     {
         _logger.LogInformation("Fetching all the genders");
 
-        return _repository.GetAllGenders();
+        return new List<Gender>();
     }
     
     [HttpGet("{genderId:int}")]
-    public async Task<ActionResult<Gender>> GetGenderById(int genderId, [FromHeader] string name)
+    public Task<ActionResult<Gender>> GetGenderById(int genderId, [FromHeader] string name)
     {
-        _logger.LogDebug($"Fetching the gender with id: {genderId}");
-
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        var gender = await _repository.GetGenderById(genderId);
-
-        if (gender is null)
-        {
-            throw new ApplicationException($"The gender with id {genderId} was not found.");
-            _logger.LogWarning($"There isn't any gender with id: {genderId}");
-            return NotFound();
-        }
-
-        return gender;
+        throw new NotImplementedException();
     }
 
     [HttpPost]
     public ActionResult Post([FromBody] Gender gender)
     {
-        return NoContent();
+        throw new NotImplementedException();
     }
     
     [HttpPut]
     public ActionResult Put([FromBody] Gender gender)
     {
-        return NoContent();
+        throw new NotImplementedException();
     }
     
     [HttpDelete]
     public ActionResult Delete()
     {
-        return NoContent();
+        throw new NotImplementedException();
     }
 }
