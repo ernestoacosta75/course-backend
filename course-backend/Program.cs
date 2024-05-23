@@ -1,6 +1,6 @@
 
+using course_backend.Filters;
 using course_backend.Interfaces.Repositories;
-using course_backend.Middlewares;
 using course_backend.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
@@ -18,7 +18,11 @@ namespace course_backend
             // Add services to the container.
 
             builder.Services.AddTransient<IRepository, InMemoryRepository>();
-            builder.Services.AddControllers();
+            builder.Services.AddTransient<CustomActionFilter>();
+            builder.Services.AddControllers(options =>
+            {
+                options.Filters.Add(typeof(ExceptionFilter));
+            });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
