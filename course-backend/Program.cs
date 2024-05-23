@@ -1,6 +1,9 @@
 
 using course_backend.Filters;
+using course_backend.Interfaces.UnitOfWorks;
+using course_backend.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 
 namespace course_backend
 {
@@ -9,6 +12,25 @@ namespace course_backend
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Configuration
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appSettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettingsDevelopment.json", optional: true, reloadOnChange: true)
+                .Build();
+
+            // DbContext Configuration
+            string connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new InvalidOperationException("No connection string found in configuration.");
+            }
+
+            builder.Services.AddDbContext<MyDbContext>(options =>
+                options.UseSqlServer(connectionString));
+
+            builder.Services.AddScoped<IUnitOfWork, IUnitOfWork>();
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
             //builder.Services.AddResponseCaching();
