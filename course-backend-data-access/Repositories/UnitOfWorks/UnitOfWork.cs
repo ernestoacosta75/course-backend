@@ -1,8 +1,7 @@
-﻿using course_backend.Entities;
-using course_backend.Interfaces.Repositories;
-using course_backend.Interfaces.UnitOfWorks;
+﻿using course_backend_entities;
+using course_backend_interfaces;
 
-namespace course_backend.Repositories.UnitOfWorks;
+namespace course_backend_data_access;
 
 public class UnitOfWork : IUnitOfWork
 {

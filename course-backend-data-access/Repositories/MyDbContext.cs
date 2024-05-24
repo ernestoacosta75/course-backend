@@ -1,7 +1,7 @@
-﻿using course_backend.Entities;
+﻿using course_backend_entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace course_backend.Repositories;
+namespace course_backend_data_access;
 
 public class MyDbContext : DbContext
 {

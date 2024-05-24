@@ -1,13 +1,12 @@
-﻿using course_backend.Entities;
-using course_backend.Interfaces.Repositories;
+﻿using course_backend_entities;
 
-namespace course_backend.Repositories;
+namespace course_backend_data_access;
 
 public class InMemoryRepository // : IRepository
 {
-    private readonly ILogger<InMemoryRepository> _logger;
+    //private readonly ILogger<InMemoryRepository> _logger;
     private List<Gender> _genders;
-    public InMemoryRepository(ILogger<InMemoryRepository> logger)
+    public InMemoryRepository(/*ILogger<InMemoryRepository> logger*/)
     {
         _genders = new List<Gender>() 
         {
@@ -15,7 +14,7 @@ public class InMemoryRepository // : IRepository
             new Gender() { Id = 2, Name = "Action" }
         };
 
-        _logger = logger;
+        // _logger = logger;
     }
 
     public List<Gender> GetAllGenders()

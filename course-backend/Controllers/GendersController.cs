@@ -1,4 +1,5 @@
-﻿using course_backend.Entities;
+﻿using course_backend_entities;
+using course_backend_interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace course_backend.Controllers;
@@ -9,9 +10,11 @@ namespace course_backend.Controllers;
 public class GendersController : ControllerBase
 {
     private readonly ILogger<GendersController> _logger;
+    private readonly IGenderService _genderService;
 
-    public GendersController(ILogger<GendersController> logger)
+    public GendersController(IGenderService genderService, ILogger<GendersController> logger)
     {
+        _genderService = genderService;
         _logger = logger;
     }
 
@@ -20,13 +23,13 @@ public class GendersController : ControllerBase
     {
         _logger.LogInformation("Fetching all the genders");
 
-        return new List<Gender>();
+        return _genderService.GetAllGenders().ToList();
     }
     
     [HttpGet("{genderId:int}")]
-    public Task<ActionResult<Gender>> GetGenderById(int genderId, [FromHeader] string name)
+    public async Task<ActionResult<Gender>> GetGenderById(int genderId)
     {
-        throw new NotImplementedException();
+        return await _genderService.GetGenderById(genderId);
     }
 
     [HttpPost]

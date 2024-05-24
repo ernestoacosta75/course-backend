@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace course_backend.Validations;
+namespace course_backend_models;
 
 public class FirstLetterUppercaseAttribute : ValidationAttribute
 {

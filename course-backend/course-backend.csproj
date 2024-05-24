@@ -9,10 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.5.0-preview2-24180-01" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0-preview.4.24267.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\course-backend-data-access\course-backend-data-access.csproj" />
+    <ProjectReference Include="..\course-backend-implementations\course-backend-implementations.csproj" />
+    <ProjectReference Include="..\course-backend-interfaces\course-backend-interfaces.csproj" />
   </ItemGroup>
 
 </Project>

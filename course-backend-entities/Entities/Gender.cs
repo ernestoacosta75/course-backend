@@ -1,7 +1,6 @@
-﻿using course_backend.Validations;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace course_backend.Entities;
+namespace course_backend_entities;
 
 public class Gender
 {

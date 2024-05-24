@@ -1,7 +1,7 @@
 
 using course_backend.Filters;
-using course_backend.Interfaces.UnitOfWorks;
-using course_backend.Repositories;
+using course_backend_data_access;
+using course_backend_interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,7 +30,7 @@ namespace course_backend
             builder.Services.AddDbContext<MyDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            builder.Services.AddScoped<IUnitOfWork, IUnitOfWork>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
             //builder.Services.AddResponseCaching();
