@@ -1,6 +1,7 @@
 
 using course_backend.Filters;
 using course_backend_data_access;
+using course_backend_implementations.Services;
 using course_backend_interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -15,8 +16,8 @@ namespace course_backend
 
             // Configuration
             var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appSettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile("appsettingsDevelopment.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
                 .Build();
 
             // DbContext Configuration
@@ -27,10 +28,23 @@ namespace course_backend
                 throw new InvalidOperationException("No connection string found in configuration.");
             }
 
+            // CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins(configuration.GetValue<string>("frontend_url"))
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
+
             builder.Services.AddDbContext<MyDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            builder.Services.AddScoped<IGenderService, GenderService>();
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
             //builder.Services.AddResponseCaching();
@@ -61,6 +75,8 @@ namespace course_backend
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             //app.UseResponseCaching();
 

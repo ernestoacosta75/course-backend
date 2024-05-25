@@ -11,4 +11,12 @@
     <ProjectReference Include="..\course-backend-interfaces\course-backend-interfaces.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dtos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Reinforced.Typings" Version="1.6.3" />
+  </ItemGroup>
+
 </Project>

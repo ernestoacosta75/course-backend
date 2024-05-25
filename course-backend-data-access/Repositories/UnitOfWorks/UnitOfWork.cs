@@ -5,12 +5,14 @@ namespace course_backend_data_access;
 
 public class UnitOfWork : IUnitOfWork
 {
+    private readonly MyDbContext _context;
     private bool _disposed = false;
     public IRepository<Gender> GenderRepository { get; private set; }
 
-    public UnitOfWork()
+    public UnitOfWork(MyDbContext context)
     {
-        //GenderRepository = new Repository<Gender>(_context);
+        _context = context;
+        GenderRepository = new Repository<Gender>(_context);
     }
 
     public void Dispose()
