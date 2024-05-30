@@ -19,11 +19,12 @@ public class GendersController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<List<Gender>> GetAllGenders()
+    public async Task<ActionResult<List<Gender>>> GetAllGenders()
     {
         _logger.LogInformation("Fetching all the genders");
 
-        return _genderService.GetAllGenders().ToList();
+        var genders = await _genderService.GetAllGenders();
+        return genders.ToList();
     }
     
     [HttpGet("{genderId:int}")]
@@ -35,7 +36,8 @@ public class GendersController : ControllerBase
     [HttpPost]
     public ActionResult Post([FromBody] Gender gender)
     {
-        throw new NotImplementedException();
+        _genderService.AddGender(gender);
+        return NoContent();
     }
     
     [HttpPut]

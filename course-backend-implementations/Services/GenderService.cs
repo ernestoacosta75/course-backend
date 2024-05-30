@@ -11,12 +11,12 @@ public class GenderService(IUnitOfWork unitOfWork) : IGenderService
         unitOfWork.Save();
     }
 
-    public IEnumerable<Gender> GetAllGenders()
+    public async Task<IEnumerable<Gender>> GetAllGenders()
     {
-        return unitOfWork.GenderRepository.GetAll();
+        return await unitOfWork.GenderRepository.GetAll();
     }
 
-    public async Task<Gender> GetGenderById(int genderId)
+    public async Task<Gender?> GetGenderById(int genderId)
     {
         return await unitOfWork.GenderRepository.GetById(genderId);
     }

@@ -7,7 +7,7 @@ public interface IGenderService
     void AddGender(Gender gender);
     void UpdateGender(Gender gender);
     void RemoveGender(Gender gender);
-    Task<Gender> GetGenderById(int genderId);
-    IEnumerable<Gender> GetAllGenders();
+    Task<Gender?> GetGenderById(int genderId);
+    Task<IEnumerable<Gender>> GetAllGenders();
 
 }
