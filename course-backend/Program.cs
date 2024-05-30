@@ -20,15 +20,19 @@ namespace course_backend
                 .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
                 .Build();
 
+            // Enable logging for EF Core
+            builder.Logging.AddConsole();
+
             // DbContext Configuration
-            var serverName = configuration.GetValue<string>("SQL_SERVER") ?? "localhost";
-            string connectionString = configuration.GetConnectionString("DefaultConnection") ?? string.Empty
-                .Replace("__SQL_SERVER__", serverName);
+            var serverName = configuration.GetValue<string>("SQL_SERVER") ?? "localhost\\SQLEXPRESS";
+            string? connectionString = configuration.GetConnectionString("DefaultConnection");
 
             if (string.IsNullOrEmpty(connectionString))
             {
                 throw new InvalidOperationException("No connection string found in configuration.");
             }
+
+            connectionString = connectionString.Replace("__SQL_SERVER__", serverName);
 
             // CORS
             builder.Services.AddCors(options =>
