@@ -14,6 +14,6 @@ public class MyDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-    
+        // Empty by the moment
     }
 }

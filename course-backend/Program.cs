@@ -22,7 +22,7 @@ namespace course_backend
 
             // DbContext Configuration
             var serverName = configuration.GetValue<string>("SQL_SERVER") ?? "localhost";
-            string connectionString = configuration.GetConnectionString("DefaultConnection")
+            string connectionString = configuration.GetConnectionString("DefaultConnection") ?? string.Empty
                 .Replace("__SQL_SERVER__", serverName);
 
             if (string.IsNullOrEmpty(connectionString))
@@ -35,7 +35,7 @@ namespace course_backend
             {
                 options.AddDefaultPolicy(builder =>
                 {
-                    builder.WithOrigins(configuration.GetValue<string>("frontend_url"))
+                    builder.WithOrigins(configuration.GetValue<string>("frontend_url") ?? string.Empty)
                     .AllowAnyMethod()
                     .AllowAnyHeader();
                 });

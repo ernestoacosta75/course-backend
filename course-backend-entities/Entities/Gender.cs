@@ -9,5 +9,5 @@ public class Gender
     [Required]
     [StringLength(maximumLength: 10)]
     [FirstLetterUppercase]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 }
