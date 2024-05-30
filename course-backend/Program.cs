@@ -21,7 +21,9 @@ namespace course_backend
                 .Build();
 
             // DbContext Configuration
-            string connectionString = configuration.GetConnectionString("DefaultConnection");
+            var serverName = configuration.GetValue<string>("SQL_SERVER") ?? "localhost";
+            string connectionString = configuration.GetConnectionString("DefaultConnection")
+                .Replace("__SQL_SERVER__", serverName);
 
             if (string.IsNullOrEmpty(connectionString))
             {
