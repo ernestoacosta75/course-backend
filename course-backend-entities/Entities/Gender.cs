@@ -4,7 +4,7 @@ namespace course_backend_entities;
 
 public class Gender
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     
     [Required]
     [StringLength(maximumLength: 10)]

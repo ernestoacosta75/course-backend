@@ -16,7 +16,7 @@ public class GenderService(IUnitOfWork unitOfWork) : IGenderService
         return await unitOfWork.GenderRepository.GetAll();
     }
 
-    public async Task<Gender?> GetGenderById(int genderId)
+    public async Task<Gender?> GetGenderById(Guid genderId)
     {
         return await unitOfWork.GenderRepository.GetById(genderId);
     }
