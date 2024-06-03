@@ -24,16 +24,15 @@ namespace course_backend
             builder.Logging.AddConsole();
 
             // DbContext Configuration
-            var serverName = configuration.GetValue<string>("SQL_SERVER") ?? "localhost\\SQLEXPRESS";
-            string? connectionString = configuration.GetConnectionString("DefaultConnection");
+            var isHomeConnection = configuration.GetValue<bool>("isHomeConnection");
+            string? connectionString =  isHomeConnection ? 
+                configuration.GetConnectionString("DefaultConnection") :
+                configuration.GetConnectionString("VdiConnection");
 
             if (string.IsNullOrEmpty(connectionString))
             {
                 throw new InvalidOperationException("No connection string found in configuration.");
             }
-
-            connectionString = connectionString.Replace("__SQL_SERVER__", serverName);
-
             // CORS
             builder.Services.AddCors(options =>
             {
