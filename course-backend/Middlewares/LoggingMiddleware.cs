@@ -21,7 +21,7 @@ public class LoggingMiddleware
             await _next(context);
 
             swapStream.Seek(0, SeekOrigin.Begin);
-            string theResponse = new StreamReader(swapStream).ReadToEnd();
+            string theResponse = await new StreamReader(swapStream).ReadToEndAsync();
             swapStream.Seek(0, SeekOrigin.Begin);
 
             await swapStream.CopyToAsync(originalResponse);

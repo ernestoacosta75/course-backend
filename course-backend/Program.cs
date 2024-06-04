@@ -23,6 +23,9 @@ namespace course_backend
             // Enable logging for EF Core
             builder.Logging.AddConsole();
 
+            // Configuring AutoMapper
+            builder.Services.AddAutoMapper(typeof(Program));
+
             // DbContext Configuration
             var isHomeConnection = configuration.GetValue<bool>("isHomeConnection");
             string? connectionString =  isHomeConnection ? 

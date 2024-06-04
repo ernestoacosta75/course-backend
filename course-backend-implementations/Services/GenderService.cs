@@ -1,24 +1,26 @@
-﻿using course_backend_entities;
+﻿using AutoMapper;
+using course_backend_entities;
+using course_backend_entities.Dtos;
 using course_backend_interfaces;
 
 namespace course_backend_implementations.Services;
 
-public class GenderService(IUnitOfWork unitOfWork) : IGenderService
+public class GenderService(IUnitOfWork unitOfWork, IMapper mapper) : IGenderService
 {
-    public void AddGender(Gender gender)
+    public void AddGender(GenderCreationDto gender)
     {
-        unitOfWork.GenderRepository.Add(gender);
+        unitOfWork.GenderRepository.Add(mapper.Map<Gender>(gender));
         unitOfWork.Save();
     }
 
-    public async Task<IEnumerable<Gender>> GetAllGenders()
+    public async Task<IEnumerable<GenderDto>> GetAllGenders()
     {
-        return await unitOfWork.GenderRepository.GetAll();
+        return mapper.Map<IEnumerable<GenderDto>>(await unitOfWork.GenderRepository.GetAll());
     }
 
-    public async Task<Gender?> GetGenderById(Guid genderId)
+    public async Task<GenderDto?> GetGenderById(Guid genderId)
     {
-        return await unitOfWork.GenderRepository.GetById(genderId);
+        return mapper.Map<GenderDto>(await unitOfWork.GenderRepository.GetById(genderId));
     }
 
     public void RemoveGender(Gender gender)

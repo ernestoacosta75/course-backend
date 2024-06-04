@@ -1,4 +1,5 @@
 ﻿using course_backend_entities;
+using course_backend_entities.Dtos;
 using course_backend_interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ public class GendersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Gender>>> GetAllGenders()
+    public async Task<ActionResult<List<GenderDto>>> GetAllGenders()
     {
         _logger.LogInformation("Fetching all the genders");
 
@@ -28,13 +29,13 @@ public class GendersController : ControllerBase
     }
     
     [HttpGet("{genderId:int}")]
-    public async Task<ActionResult<Gender>> GetGenderById(Guid genderId)
+    public async Task<ActionResult<GenderDto>> GetGenderById(Guid genderId)
     {
         return await _genderService.GetGenderById(genderId);
     }
 
     [HttpPost]
-    public ActionResult Post([FromBody] Gender gender)
+    public ActionResult Post([FromBody] GenderCreationDto gender)
     {
         _genderService.AddGender(gender);
         return NoContent();
