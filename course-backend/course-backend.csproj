@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\course-backend-aop\course-backend-aop.csproj" />
     <ProjectReference Include="..\course-backend-data-access\course-backend-data-access.csproj" />
     <ProjectReference Include="..\course-backend-implementations\course-backend-implementations.csproj" />
     <ProjectReference Include="..\course-backend-interfaces\course-backend-interfaces.csproj" />

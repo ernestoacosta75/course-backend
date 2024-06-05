@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using course_backend_aop.Attributes;
 using course_backend_entities;
 using course_backend_entities.Dtos;
 using course_backend_interfaces;
@@ -7,6 +8,8 @@ namespace course_backend_implementations.Services;
 
 public class GenderService(IUnitOfWork unitOfWork, IMapper mapper) : IGenderService
 {
+    [Log]
+    [Cache]
     public void AddGender(GenderCreationDto gender)
     {
         unitOfWork.GenderRepository.Add(mapper.Map<Gender>(gender));

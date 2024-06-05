@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\course-backend-aop\course-backend-aop.csproj" />
     <ProjectReference Include="..\course-backend-interfaces\course-backend-interfaces.csproj" />
   </ItemGroup>
 

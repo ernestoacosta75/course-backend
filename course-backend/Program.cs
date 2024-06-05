@@ -1,10 +1,14 @@
 
+using Castle.DynamicProxy;
+using course_backend.Extensions;
 using course_backend.Filters;
+using course_backend_aop.Aspects;
 using course_backend_data_access;
 using course_backend_implementations.Services;
 using course_backend_interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace course_backend
 {
@@ -23,55 +27,21 @@ namespace course_backend
             // Enable logging for EF Core
             builder.Logging.AddConsole();
 
-            // Configuring AutoMapper
-            builder.Services.AddAutoMapper(typeof(Program));
+            // Custom services
+            builder.Services.AddCustomServices(configuration);
 
-            // DbContext Configuration
-            var isHomeConnection = configuration.GetValue<bool>("isHomeConnection");
-            string? connectionString =  isHomeConnection ? 
-                configuration.GetConnectionString("DefaultConnection") :
-                configuration.GetConnectionString("VdiConnection");
+            builder.Services.AddSingleton(new ProxyGenerator());
+            builder.Services.AddScoped<IInterceptor, LoggingInterceptor>();
+            builder.Services.AddScoped<IInterceptor, CachingInterceptor>();
 
-            if (string.IsNullOrEmpty(connectionString))
-            {
-                throw new InvalidOperationException("No connection string found in configuration.");
-            }
-            // CORS
-            builder.Services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(builder =>
-                {
-                    builder.WithOrigins(configuration.GetValue<string>("frontend_url") ?? string.Empty)
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();
-                });
-            });
+            builder.Services.AddProxiedScoped<IGenderService, GenderService>();
 
-            builder.Services.AddDbContext<MyDbContext>(options =>
-                options.UseSqlServer(connectionString));
-
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            builder.Services.AddScoped<IGenderService, GenderService>();
-
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
-            //builder.Services.AddResponseCaching();
-
-            // Add services to the container.
-
-            //builder.Services.AddTransient<IRepository, InMemoryRepository>();
-            //builder.Services.AddTransient<CustomActionFilter>();
             builder.Services.AddControllers(options =>
             {
                 options.Filters.Add(typeof(ExceptionFilter));
             });
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
-
-            //app.UseMiddleware<LoggingMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -85,8 +55,6 @@ namespace course_backend
             app.UseRouting();
 
             app.UseCors();
-
-            //app.UseResponseCaching();
 
             app.UseAuthentication();
 
