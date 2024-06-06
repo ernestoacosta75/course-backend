@@ -23,13 +23,11 @@ public class UnitOfWork : IUnitOfWork
 
     protected virtual void Dispose(bool disposing)
     {
-        if (!_disposed)
+        if (!_disposed && disposing)
         {
-            if (disposing)
-            {
-                // _context.Dispose();
-            }
+            _context.Dispose();
         }
+
         _disposed = true;
     }
 

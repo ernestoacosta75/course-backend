@@ -8,12 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\course-backend-aop\course-backend-aop.csproj" />
-    <ProjectReference Include="..\course-backend-interfaces\course-backend-interfaces.csproj" />
+    <Compile Remove="Dtos\**" />
+    <EmbeddedResource Remove="Dtos\**" />
+    <None Remove="Dtos\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\" />
+    <ProjectReference Include="..\course-backend-aop\course-backend-aop.csproj" />
+    <ProjectReference Include="..\course-backend-interfaces\course-backend-interfaces.csproj" />
   </ItemGroup>
 
   <ItemGroup>

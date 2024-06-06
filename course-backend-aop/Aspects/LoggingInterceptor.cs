@@ -3,25 +3,19 @@ using Microsoft.Extensions.Logging;
 
 namespace course_backend_aop.Aspects
 {
-    public class LoggingInterceptor : IInterceptor
+    public class LoggingInterceptor(ILogger<LoggingInterceptor> logger) : IInterceptor
     {
-        private readonly ILogger<LoggingInterceptor> _logger;
-
-        public LoggingInterceptor(ILogger<LoggingInterceptor> logger)
-        {
-            _logger = logger;
-        }
         public void Intercept(IInvocation invocation)
         {
             try
             {
-                _logger.LogInformation($"Calling method: {invocation.Method.Name}");
+                logger.LogInformation("Calling method: {MethodName}", invocation.Method.Name);
                 invocation.Proceed();
-                _logger.LogInformation($"Method: {invocation.Method.Name} completed successfully.");
+                logger.LogInformation("Method: {MethodName} completed successfully.", invocation.Method.Name);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Method: {invocation.Method.Name} threw an exception: {ex}");
+                logger.LogError("Method: {MethodName} threw an exception: {Ex}", invocation.Method.Name, ex);
                 throw;
             }
         }
