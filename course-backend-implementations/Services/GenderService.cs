@@ -16,9 +16,10 @@ public class GenderService(IUnitOfWork unitOfWork, IMapper mapper) : IGenderServ
         unitOfWork.Save();
     }
 
-    public async Task<IEnumerable<GenderDto>> GetAllGenders()
+    public IQueryable<GenderDto> GetAllGenders()
     {
-        return mapper.Map<IEnumerable<GenderDto>>(await unitOfWork.GenderRepository.GetAll());
+        return mapper.Map<IQueryable<GenderDto>>(unitOfWork.GenderRepository.GetAll());
+        //return mapper.Map<IEnumerable<GenderDto>>(await unitOfWork.GenderRepository.GetAll());
     }
 
     public async Task<GenderDto?> GetGenderById(Guid genderId)

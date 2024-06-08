@@ -8,9 +8,10 @@
             {
                 options.AddDefaultPolicy(builder =>
                 {
-                    builder.WithOrigins(frontendUrl)
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
+                    builder.WithOrigins(frontendUrl)                    
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithExposedHeaders(new string[] { "recordsTotalCount" });
                 });
             });
         }

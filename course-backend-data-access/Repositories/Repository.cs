@@ -19,9 +19,10 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         return await _dbSet.FindAsync(id);
     }
 
-    public async Task<IEnumerable<TEntity>> GetAll()
+    public IQueryable<TEntity> GetAll()
     {
-        return await _dbSet.ToListAsync();
+        return _dbSet.AsQueryable();
+        // return await _dbSet.AsQueryable();   //ToListAsync();
     }
 
     public void Add(TEntity entity)

@@ -9,6 +9,6 @@ public interface IGenderService
     void UpdateGender(Gender gender);
     void RemoveGender(Gender gender);
     Task<GenderDto?> GetGenderById(Guid genderId);
-    Task<IEnumerable<GenderDto>> GetAllGenders();
+    IQueryable<GenderDto> GetAllGenders();
 
 }

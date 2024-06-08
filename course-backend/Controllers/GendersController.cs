@@ -1,7 +1,9 @@
-﻿using course_backend_entities;
+﻿using course_backend.Utilities;
+using course_backend_entities;
 using course_backend_entities.Dtos;
 using course_backend_interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace course_backend.Controllers;
 
@@ -11,10 +13,16 @@ namespace course_backend.Controllers;
 public class GendersController(IGenderService genderService) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<List<GenderDto>>> GetAllGenders()
+    public async Task<ActionResult<List<GenderDto>>> GetAllGenders([FromQuery] PaginationDto paginationDto)
     {
-        var genders = await genderService.GetAllGenders();
-        return genders.ToList();
+        var queryable = genderService.GetAllGenders();
+        await HttpContext.InsertPaginationParametersInHeader(queryable);
+        var genders = await queryable
+            .OrderBy(x => x.Name)
+            .Paginate(paginationDto)
+            .ToListAsync();
+
+        return genders;
     }
     
     [HttpGet("{genderId:int}")]
