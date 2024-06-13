@@ -15,8 +15,11 @@ namespace course_backend.Extensions
             string frontendUrl = configuration.GetValue<string>("frontend_url") ?? string.Empty;
             services.AddCustomCors(frontendUrl);
 
+            services.AddCustomDbContext(configuration);
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            services.AddMemoryCache();
 
             // Authentication
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();

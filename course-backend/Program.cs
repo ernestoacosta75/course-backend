@@ -28,6 +28,7 @@ namespace course_backend
             builder.Logging.AddConsole();
 
             // Custom services
+            builder.Services.AddCustomSwagger();
             builder.Services.AddCustomServices(configuration);
 
             builder.Services.AddSingleton(new ProxyGenerator());

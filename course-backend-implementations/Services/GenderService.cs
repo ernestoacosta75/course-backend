@@ -18,13 +18,16 @@ public class GenderService(IUnitOfWork unitOfWork, IMapper mapper) : IGenderServ
 
     public IQueryable<GenderDto> GetAllGenders()
     {
-        return mapper.Map<IQueryable<GenderDto>>(unitOfWork.GenderRepository.GetAll());
-        //return mapper.Map<IEnumerable<GenderDto>>(await unitOfWork.GenderRepository.GetAll());
+        var genders = unitOfWork.GenderRepository.GetAll();
+        var genderDtos = mapper.ProjectTo<GenderDto>(genders);
+
+        return genderDtos;
     }
 
     public async Task<GenderDto?> GetGenderById(Guid genderId)
     {
-        return mapper.Map<GenderDto>(await unitOfWork.GenderRepository.GetById(genderId));
+        var gender = await unitOfWork.GenderRepository.GetById(genderId);
+        return mapper.Map<GenderDto>(gender);
     }
 
     public void RemoveGender(Gender gender)
