@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Films.Application.Services.Gender;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Films.Application.DependencyResolver
 {
@@ -6,7 +7,7 @@ namespace Films.Application.DependencyResolver
     {
         public static void AddApplication(this IServiceCollection services)
         {
-
+            services.AddTransient<IGenderService, GenderService>();
         }
     }
 }
