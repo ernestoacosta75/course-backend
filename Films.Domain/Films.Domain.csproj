@@ -2,9 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>course_backend_data_access</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
-	<InvariantGlobalization>false</InvariantGlobalization>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
@@ -16,11 +14,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\course-backend-entities\Films.Domain1.csproj" />
-    <ProjectReference Include="..\course-backend-interfaces\course-backend-interfaces.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.0" />
   </ItemGroup>
 
 </Project>

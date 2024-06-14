@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "course-backend", "course-backend\course-backend.csproj", "{3AC5FC2C-8C4B-42AD-BDA3-ADBD8CAC8A54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Films.Api", "course-backend\Films.Api.csproj", "{3AC5FC2C-8C4B-42AD-BDA3-ADBD8CAC8A54}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "course-backend-interfaces", "course-backend-interfaces\course-backend-interfaces.csproj", "{1DF76AEC-6421-410B-BB84-200375F48F09}"
 EndProject
@@ -11,9 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "course-backend-data-access"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "course-backend-implementations", "course-backend-implementations\course-backend-implementations.csproj", "{8E3AF755-7878-4D01-A712-5ADD58CB3EFF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "course-backend-entities", "course-backend-entities\course-backend-entities.csproj", "{1A6FA687-5F4B-49D8-80CC-A09D3B52BBD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Films.Domain1", "course-backend-entities\Films.Domain1.csproj", "{1A6FA687-5F4B-49D8-80CC-A09D3B52BBD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "course-backend-aop", "course-backend-aop\course-backend-aop.csproj", "{6D7E298E-0BB1-41DB-80AC-F856A2A65135}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "course-backend-aop", "course-backend-aop\course-backend-aop.csproj", "{6D7E298E-0BB1-41DB-80AC-F856A2A65135}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Films.Infrastructure", "Films.Infrastructure\Films.Infrastructure.csproj", "{8ECD63B6-029E-45F7-A554-877A5F937D26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Films.Application", "Films.Application\Films.Application.csproj", "{A793C293-B0F1-4F7B-AF79-796C06F9DE0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Films.Application.Services", "Films.Application.Services\Films.Application.Services.csproj", "{4D68FE85-D77F-4258-A72D-D025EE61CD23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Films.Domain", "Films.Domain\Films.Domain.csproj", "{AEF5C0DB-8539-46FA-9A15-5C4AC61A0DA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +53,22 @@ Global
 		{6D7E298E-0BB1-41DB-80AC-F856A2A65135}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D7E298E-0BB1-41DB-80AC-F856A2A65135}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D7E298E-0BB1-41DB-80AC-F856A2A65135}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ECD63B6-029E-45F7-A554-877A5F937D26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ECD63B6-029E-45F7-A554-877A5F937D26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ECD63B6-029E-45F7-A554-877A5F937D26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ECD63B6-029E-45F7-A554-877A5F937D26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A793C293-B0F1-4F7B-AF79-796C06F9DE0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A793C293-B0F1-4F7B-AF79-796C06F9DE0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A793C293-B0F1-4F7B-AF79-796C06F9DE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A793C293-B0F1-4F7B-AF79-796C06F9DE0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D68FE85-D77F-4258-A72D-D025EE61CD23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D68FE85-D77F-4258-A72D-D025EE61CD23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D68FE85-D77F-4258-A72D-D025EE61CD23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D68FE85-D77F-4258-A72D-D025EE61CD23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEF5C0DB-8539-46FA-9A15-5C4AC61A0DA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEF5C0DB-8539-46FA-9A15-5C4AC61A0DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEF5C0DB-8539-46FA-9A15-5C4AC61A0DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEF5C0DB-8539-46FA-9A15-5C4AC61A0DA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
