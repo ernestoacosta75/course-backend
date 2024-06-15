@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using course_backend_entities.Dtos;
-using course_backend_entities;
+using Films.Core.Application.Models;
+using Films.Core.Domain.Entities;
 
 namespace course_backend.Utilities
 {

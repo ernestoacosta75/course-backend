@@ -1,4 +1,4 @@
-﻿using course_backend_entities.Dtos;
+﻿using Films.Core.Application.Models;
 
 namespace course_backend.Utilities
 {

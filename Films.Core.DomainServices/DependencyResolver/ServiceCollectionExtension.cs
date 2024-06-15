@@ -1,13 +1,16 @@
-﻿using course_backend_data_access;
+﻿using Films.Core.DomainServices.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace course_backend.Extensions
+namespace Films.Core.DomainServices.DependencyResolver
 {
-    public static class DbContextExtensions
+    public static class ServiceCollectionExtension
     {
-        public static void AddCustomDbContext(this IServiceCollection services, IConfiguration configuration)
+        public static void AddDatabaseContext(this IServiceCollection services, IConfiguration configuration)
         {
             var isHomeConnection = configuration.GetValue<bool>("isHomeConnection");
+
             string? connectionString = isHomeConnection ?
                 configuration.GetConnectionString("DefaultConnection") :
                 configuration.GetConnectionString("VdiConnection");
@@ -17,7 +20,7 @@ namespace course_backend.Extensions
                 throw new InvalidOperationException("No connection string found in configuration.");
             }
 
-            services.AddDbContext<MyDbContext>(options =>
+            services.AddDbContext<FilmsDbContext>(options =>
                 options.UseSqlServer(connectionString));
         }
     }

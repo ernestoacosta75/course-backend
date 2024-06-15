@@ -1,7 +1,7 @@
-﻿using Films.Domain.Validations;
+﻿using Films.Core.Domain.Validations;
 using System.ComponentModel.DataAnnotations;
 
-namespace Films.Domain.Entities
+namespace Films.Core.Domain.Entities
 {
     public class Gender
     {

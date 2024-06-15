@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Films.Domain.Validations
+namespace Films.Core.Domain.Validations
 {
     public class FirstLetterUppercaseAttribute : ValidationAttribute
     {

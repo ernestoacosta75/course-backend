@@ -1,7 +1,7 @@
-﻿using Films.Domain.DatabaseContext;
+﻿using Films.Core.DomainServices.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 
-namespace Films.Domain.Repositories
+namespace Films.Core.DomainServices.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
@@ -41,7 +41,7 @@ namespace Films.Domain.Repositories
         public void Update(TEntity entity)
         {
             _dbSet.Attach(entity);
-            _context.Entry(entity).State = EntityState.Modified;
+            _dbContext.Entry(entity).State = EntityState.Modified;
         }
     }
 }

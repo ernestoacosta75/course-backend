@@ -1,5 +1,5 @@
-﻿using Films.Domain.DatabaseContext;
-using Films.Domain.Repositories;
+﻿using Films.Core.DomainServices.DatabaseContext;
+using Films.Core.DomainServices.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Films.Infrastructure.Repositories
@@ -42,7 +42,7 @@ namespace Films.Infrastructure.Repositories
         public void Update(TEntity entity)
         {
             _dbSet.Attach(entity);
-            _context.Entry(entity).State = EntityState.Modified;
+            _dbContext.Entry(entity).State = EntityState.Modified;
         }
     }
 }

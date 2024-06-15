@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Films.Application.Models;
-using Films.Domain.UnitOfWorks;
+using Films.Core.Application.Models;
+using Films.Core.DomainServices.UnitOfWorks;
 
-namespace Films.Application.Services.Gender
+namespace Films.Core.Application.Services.Gender
 {
     public class GenderService(IUnitOfWork unitOfWork, IMapper mapper) : IGenderService
     {

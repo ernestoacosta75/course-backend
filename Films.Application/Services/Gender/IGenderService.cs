@@ -1,6 +1,6 @@
-﻿using Films.Application.Models;
+﻿using Films.Core.Application.Models;
 
-namespace Films.Application.Services.Gender
+namespace Films.Core.Application.Services.Gender
 {
     public interface IGenderService
     {

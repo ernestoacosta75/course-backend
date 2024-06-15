@@ -1,7 +1,7 @@
 ﻿using course_backend.Utilities;
-using course_backend_entities;
-using course_backend_entities.Dtos;
-using course_backend_interfaces;
+using Films.Core.Application.Models;
+using Films.Core.Application.Services.Gender;
+using Films.Core.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

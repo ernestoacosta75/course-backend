@@ -1,7 +1,9 @@
-﻿using Films.Domain.Repositories;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Films.Domain.DependencyResolver;
+using Films.Core.DomainServices.DependencyResolver;
+using Films.Core.DomainServices.Repositories;
+using Castle.DynamicProxy;
+using Films.Infrastructure.Aspects;
 
 namespace Films.Infrastructure.DependencyResolver
 {
@@ -11,6 +13,10 @@ namespace Films.Infrastructure.DependencyResolver
         {
             services.AddDatabaseContext(configuration);
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            services.AddSingleton(new ProxyGenerator());
+            services.AddScoped<IInterceptor, LoggingInterceptor>();
+            services.AddScoped<IInterceptor, CachingInterceptor>();
         }
     }
 }

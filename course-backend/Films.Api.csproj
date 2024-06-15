@@ -20,10 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\course-backend-aop\course-backend-aop.csproj" />
-    <ProjectReference Include="..\course-backend-data-access\course-backend-data-access.csproj" />
-    <ProjectReference Include="..\course-backend-implementations\course-backend-implementations.csproj" />
-    <ProjectReference Include="..\course-backend-interfaces\course-backend-interfaces.csproj" />
+    <ProjectReference Include="..\Films.Application\Films.Core.Application.csproj" />
+    <ProjectReference Include="..\Films.Infrastructure\Films.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

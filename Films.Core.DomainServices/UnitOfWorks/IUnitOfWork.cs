@@ -1,7 +1,7 @@
-﻿using Films.Domain.Entities;
-using Films.Domain.Repositories;
+﻿using Films.Core.Domain.Entities;
+using Films.Core.DomainServices.Repositories;
 
-namespace Films.Domain.UnitOfWorks
+namespace Films.Core.DomainServices.UnitOfWorks
 {
     public interface IUnitOfWork : IDisposable
     {

@@ -1,4 +1,4 @@
-﻿namespace Films.Application.Models
+﻿namespace Films.Core.Application.Models
 {
     public class GenderDto
     {

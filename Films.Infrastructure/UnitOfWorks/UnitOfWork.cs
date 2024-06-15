@@ -1,7 +1,7 @@
-﻿using Films.Domain.DatabaseContext;
-using Films.Domain.Entities;
-using Films.Domain.Repositories;
-using Films.Domain.UnitOfWorks;
+﻿using Films.Core.Domain.Entities;
+using Films.Core.DomainServices.DatabaseContext;
+using Films.Core.DomainServices.Repositories;
+using Films.Core.DomainServices.UnitOfWorks;
 
 namespace Films.Infrastructure.UnitOfWorks
 {

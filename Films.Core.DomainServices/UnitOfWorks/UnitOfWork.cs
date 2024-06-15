@@ -1,9 +1,8 @@
-﻿using Films.Domain.DatabaseContext;
-using Films.Domain.Entities;
-using Films.Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using Films.Core.Domain.Entities;
+using Films.Core.DomainServices.DatabaseContext;
+using Films.Core.DomainServices.Repositories;
 
-namespace Films.Domain.UnitOfWorks
+namespace Films.Core.DomainServices.UnitOfWorks
 {
     public class UnitOfWork : IUnitOfWork
     {

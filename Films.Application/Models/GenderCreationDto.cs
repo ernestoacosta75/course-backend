@@ -1,7 +1,7 @@
-﻿using Films.Application.Validations;
+﻿using Films.Core.Domain.Validations;
 using System.ComponentModel.DataAnnotations;
 
-namespace Films.Application.Models
+namespace Films.Core.Application.Models
 {
     public class GenderCreationDto
     {

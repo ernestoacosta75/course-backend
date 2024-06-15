@@ -1,7 +1,7 @@
-﻿using Films.Domain.Entities;
+﻿using Films.Core.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Films.Domain.DatabaseContext
+namespace Films.Core.DomainServices.DatabaseContext
 {
     public class FilmsDbContext : DbContext
     {

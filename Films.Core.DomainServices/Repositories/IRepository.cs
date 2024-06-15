@@ -1,4 +1,4 @@
-﻿namespace Films.Domain.Repositories
+﻿namespace Films.Core.DomainServices.Repositories
 {
     public interface IRepository<TEntity> where TEntity : class
     {

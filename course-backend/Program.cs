@@ -1,14 +1,8 @@
-
-using Castle.DynamicProxy;
 using course_backend.Extensions;
 using course_backend.Filters;
-using course_backend_aop.Aspects;
-using course_backend_data_access;
-using course_backend_implementations.Services;
-using course_backend_interfaces;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
+using Films.Application.DependencyResolver;
+using Films.Infrastructure.DependencyResolver;
+using Films.Core.Application.Services.Gender;
 
 namespace course_backend
 {
@@ -27,20 +21,16 @@ namespace course_backend
             // Enable logging for EF Core
             builder.Logging.AddConsole();
 
-            // Custom services
-            builder.Services.AddCustomSwagger();
-            builder.Services.AddCustomServices(configuration);
-
-            builder.Services.AddSingleton(new ProxyGenerator());
-            builder.Services.AddScoped<IInterceptor, LoggingInterceptor>();
-            builder.Services.AddScoped<IInterceptor, CachingInterceptor>();
-
-            builder.Services.AddProxiedScoped<IGenderService, GenderService>();
-
             builder.Services.AddControllers(options =>
             {
                 options.Filters.Add(typeof(ExceptionFilter));
             });
+
+            // Custom services
+            builder.Services.AddCustomSwagger();
+            builder.Services.AddProxiedScoped<IGenderService, GenderService>();
+            builder.Services.AddInfrastructure(configuration);
+            
 
             var app = builder.Build();
 

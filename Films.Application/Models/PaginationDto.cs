@@ -1,4 +1,4 @@
-﻿namespace Films.Application.Models
+﻿namespace Films.Core.Application.Models
 {
     public class PaginationDto
     {
@@ -10,7 +10,7 @@
             get { return _recordsPerPage; }
             set
             {
-                _recordsPerPage = (value > _maxAmountRecordsPerPage) ? _maxAmountRecordsPerPage : value;
+                _recordsPerPage = value > _maxAmountRecordsPerPage ? _maxAmountRecordsPerPage : value;
             }
         }
     }
