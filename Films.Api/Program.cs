@@ -12,7 +12,7 @@ namespace course_backend
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Configuration
+            // Getting configuration
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
