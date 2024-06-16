@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using Films.Core.Application.Models;
 using Films.Core.DomainServices.UnitOfWorks;
+using Films.Infrastructure.Attributes;
 
 namespace Films.Core.Application.Services.Gender
 {
     public class GenderService(IUnitOfWork unitOfWork, IMapper mapper) : IGenderService
     {
+        [Log]
+        [Cache]
         public void AddGender(GenderCreationDto gender)
         {
             unitOfWork.GenderRepository.Add(mapper.Map<Domain.Entities.Gender>(gender));

@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Films.Core.DomainServices\Films.Core.DomainServices.csproj" />
     <ProjectReference Include="..\Films.Domain\Films.Core.Domain.csproj" />
+    <ProjectReference Include="..\Films.Infrastructure\Films.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
