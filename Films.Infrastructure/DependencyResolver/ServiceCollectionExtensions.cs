@@ -4,6 +4,7 @@ using Films.Core.DomainServices.DependencyResolver;
 using Films.Core.DomainServices.Repositories;
 using Castle.DynamicProxy;
 using Films.Infrastructure.Aspects;
+using Films.Core.DomainServices.UnitOfWorks;
 
 namespace Films.Infrastructure.DependencyResolver
 {
@@ -13,6 +14,7 @@ namespace Films.Infrastructure.DependencyResolver
         {
             services.AddDatabaseContext(configuration);
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddSingleton(new ProxyGenerator());
             services.AddScoped<IInterceptor, LoggingInterceptor>();

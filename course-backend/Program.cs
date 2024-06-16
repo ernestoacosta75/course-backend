@@ -26,12 +26,16 @@ namespace course_backend
                 options.Filters.Add(typeof(ExceptionFilter));
             });
 
+            // Register IMemoryCache
+            builder.Services.AddMemoryCache();
+
+            builder.Services.AddCustomAutoMapper();
+
             // Custom services
             builder.Services.AddCustomSwagger();
-            builder.Services.AddProxiedScoped<IGenderService, GenderService>();
             builder.Services.AddInfrastructure(configuration);
+            builder.Services.AddProxiedScoped<IGenderService, GenderService>();
             
-
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

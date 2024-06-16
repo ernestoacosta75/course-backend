@@ -17,7 +17,7 @@ namespace Films.Core.Application.Tests
         }
         public void Dispose()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
