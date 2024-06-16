@@ -1,8 +1,8 @@
-
+using course_backend.Extensions;
 using course_backend.Filters;
-using course_backend.Interfaces.Repositories;
-using course_backend.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Films.Application.DependencyResolver;
+using Films.Infrastructure.DependencyResolver;
+using Films.Core.Application.Services.Gender;
 
 namespace course_backend
 {
@@ -12,24 +12,31 @@ namespace course_backend
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
-            builder.Services.AddResponseCaching();
+            // Configuration
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
+                .Build();
 
-            // Add services to the container.
+            // Enable logging for EF Core
+            builder.Logging.AddConsole();
 
-            builder.Services.AddTransient<IRepository, InMemoryRepository>();
-            builder.Services.AddTransient<CustomActionFilter>();
             builder.Services.AddControllers(options =>
             {
                 options.Filters.Add(typeof(ExceptionFilter));
             });
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
+            // Register IMemoryCache
+            builder.Services.AddMemoryCache();
+
+            builder.Services.AddCustomAutoMapper();
+
+            // Custom services
+            builder.Services.AddCustomSwagger();
+            builder.Services.AddInfrastructure(configuration);
+            builder.Services.AddProxiedScoped<IGenderService, GenderService>();
+            
             var app = builder.Build();
-
-            //app.UseMiddleware<LoggingMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -42,7 +49,7 @@ namespace course_backend
 
             app.UseRouting();
 
-            app.UseResponseCaching();
+            app.UseCors();
 
             app.UseAuthentication();
 

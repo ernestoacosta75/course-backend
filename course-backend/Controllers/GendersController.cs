@@ -1,72 +1,53 @@
-﻿using course_backend.Entities;
-using course_backend.Filters;
-using course_backend.Interfaces.Repositories;
+﻿using course_backend.Utilities;
+using Films.Core.Application.Models;
+using Films.Core.Application.Services.Gender;
+using Films.Core.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace course_backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-public class GendersController : ControllerBase
+public class GendersController(IGenderService genderService) : ControllerBase
 {
-    private readonly IRepository _repository;
-    private readonly ILogger<GendersController> _logger;
-
-    public GendersController(IRepository repository, ILogger<GendersController> logger)
-    {
-        _repository = repository;
-        _logger = logger;
-    }
-
     [HttpGet]
-    [HttpGet("list")]
-    // [ResponseCache(Duration = 60)] // This won't work if in the request headers is present Authorization
-    [ServiceFilter(typeof(CustomActionFilter))]
-    public ActionResult<List<Gender>> GetAllGenders()
+    public async Task<ActionResult<List<GenderDto>>> GetAllGenders([FromQuery] PaginationDto paginationDto)
     {
-        _logger.LogInformation("Fetching all the genders");
+        var queryable = genderService.GetAllGenders();
+        await HttpContext.InsertPaginationParametersInHeader(queryable);
+        var genders = await queryable
+            .OrderBy(x => x.Name)
+            .Paginate(paginationDto)
+            .ToListAsync();
 
-        return _repository.GetAllGenders();
+        return genders;
     }
     
     [HttpGet("{genderId:int}")]
-    public async Task<ActionResult<Gender>> GetGenderById(int genderId, [FromHeader] string name)
+    public async Task<ActionResult<GenderDto>> GetGenderById(Guid genderId)
     {
-        _logger.LogDebug($"Fetching the gender with id: {genderId}");
-
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        var gender = await _repository.GetGenderById(genderId);
-
-        if (gender is null)
-        {
-            throw new ApplicationException($"The gender with id {genderId} was not found.");
-            _logger.LogWarning($"There isn't any gender with id: {genderId}");
-            return NotFound();
-        }
-
+        GenderDto? gender = await genderService.GetGenderById(genderId);
         return gender;
     }
 
     [HttpPost]
-    public ActionResult Post([FromBody] Gender gender)
+    public ActionResult Post([FromBody] GenderCreationDto gender)
     {
+        genderService.AddGender(gender);
         return NoContent();
     }
     
     [HttpPut]
     public ActionResult Put([FromBody] Gender gender)
     {
-        return NoContent();
+        throw new NotImplementedException();
     }
     
     [HttpDelete]
     public ActionResult Delete()
     {
-        return NoContent();
+        throw new NotImplementedException();
     }
 }
