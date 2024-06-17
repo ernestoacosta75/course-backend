@@ -33,8 +33,10 @@ namespace course_backend
 
             // Custom services
             builder.Services.AddCustomSwagger();
+            builder.Services.AddCustomCors(configuration.GetValue<string>("frontend_url") ?? string.Empty);
             builder.Services.AddInfrastructure(configuration);
             builder.Services.AddProxiedScoped<IGenderService, GenderService>();
+
             
             var app = builder.Build();
 

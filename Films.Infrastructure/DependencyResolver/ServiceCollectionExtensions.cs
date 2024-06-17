@@ -5,6 +5,8 @@ using Films.Core.DomainServices.Repositories;
 using Castle.DynamicProxy;
 using Films.Infrastructure.Aspects;
 using Films.Core.DomainServices.UnitOfWorks;
+using Films.Infrastructure.UnitOfWorks;
+using Films.Infrastructure.Repositories;
 
 namespace Films.Infrastructure.DependencyResolver
 {
