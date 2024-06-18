@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace course_backend.Utilities
+namespace Films.Api.Utilities
 {
     /// <summary>
     /// This extension will be used to paginate and return back to the frontend
