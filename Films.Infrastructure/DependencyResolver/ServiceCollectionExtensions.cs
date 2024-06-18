@@ -18,7 +18,7 @@ namespace Films.Infrastructure.DependencyResolver
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            
+
             services.AddSingleton(new ProxyGenerator());
             services.AddScoped<IInterceptor, LoggingInterceptor>();
         }
