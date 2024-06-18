@@ -1,21 +1,25 @@
 ﻿using Films.Core.DomainServices.DatabaseContext;
 using Films.Core.DomainServices.Repositories;
+using Films.Infrastructure.Attributes;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Films.Infrastructure.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private readonly FilmsDbContext _dbContext;
+        private readonly IMemoryCache _cache;
         private readonly DbSet<TEntity> _dbSet;
 
-        public Repository(FilmsDbContext dbContext)
+        public Repository(FilmsDbContext dbContext, IMemoryCache cache)
         {
             _dbContext = dbContext;
+            _cache = cache;
             _dbSet = _dbContext.Set<TEntity>();
         }
         public void Add(TEntity entity)
-        {
+        {= 
             _dbSet.Add(entity);
         }
 
@@ -29,8 +33,10 @@ namespace Films.Infrastructure.Repositories
             _dbSet.Remove(entity);
         }
 
+        [Cache]
         public IQueryable<TEntity> GetAll()
         {
+            var cacheKey = 
             return _dbSet.AsQueryable();
         }
 
