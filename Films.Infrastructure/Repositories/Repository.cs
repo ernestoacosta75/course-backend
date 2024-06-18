@@ -16,7 +16,7 @@ namespace Films.Infrastructure.Repositories
         }
         public void Add(TEntity entity)
         {
-            _dbSet.AddAsync(entity);
+            _dbSet.Add(entity);
         }
 
         public void Delete(TEntity entity)

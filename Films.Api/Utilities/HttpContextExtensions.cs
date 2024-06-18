@@ -8,7 +8,7 @@ namespace course_backend.Utilities
     /// </summary>
     public static class HttpContextExtensions
     {
-        public async static Task InsertPaginationParametersInHeader<T>(this HttpContext httpContext,
+        public static async Task InsertPaginationParametersInHeader<T>(this HttpContext httpContext,
                                                                        IQueryable<T> queryable)
         {
             if (httpContext == null)

@@ -2,7 +2,6 @@
 using Films.Core.DomainServices.DatabaseContext;
 using Films.Core.DomainServices.Repositories;
 using Films.Core.DomainServices.UnitOfWorks;
-using Films.Infrastructure.Repositories;
 
 namespace Films.Infrastructure.UnitOfWorks
 {
@@ -10,33 +9,33 @@ namespace Films.Infrastructure.UnitOfWorks
     {
         private readonly FilmsDbContext _dbContext;
         private bool _disposed = false;
-        public IRepository<Gender> GenderRepository { get; private set; }
+        public IRepository<Gender> GenderRepository { get; }
 
-        public UnitOfWork(FilmsDbContext dbContext)
+        public UnitOfWork(FilmsDbContext dbContext, IRepository<Gender> genderRepository)
         {
             _dbContext = dbContext;
-            GenderRepository = new Repository<Gender>(dbContext);
+            GenderRepository = genderRepository;
         }
 
         public void Dispose()
         {
-            //Dispose(true);
-            //GC.SuppressFinalize(this);
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            //if (!_disposed && disposing)
-            //{
-            //    _dbContext.Dispose();
-            //}
+            if (!_disposed && disposing)
+            {
+                _dbContext?.Dispose();
+            }
 
             _disposed = true;
         }
 
         public void Save()
         {
-            _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
     }
 }

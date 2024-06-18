@@ -1,19 +1,17 @@
-﻿using AutoMapper.Execution;
-using Microsoft.Extensions.DependencyInjection;
-using Castle.DynamicProxy;
+﻿using Castle.DynamicProxy;
 using Films.Core.Application.Services.Gender;
+using Microsoft.Extensions.DependencyInjection;
 using ProxyGenerator = Castle.DynamicProxy.ProxyGenerator;
 
-namespace Films.Application.DependencyResolver
+namespace Films.Core.Application.DependencyResolver
 {
     public static class ServiceCollectionExtensions
     {
         public static void AddApplication(this IServiceCollection services)
         {
-            services.AddTransient<IGenderService, GenderService>();
+            services.AddProxiedScoped<IGenderService, GenderService>();
         }
-
-        public static void AddProxiedScoped<TInterface, TImplementation>(this IServiceCollection services)
+        private static void AddProxiedScoped<TInterface, TImplementation>(this IServiceCollection services)
         where TInterface : class
         where TImplementation : class, TInterface
         {

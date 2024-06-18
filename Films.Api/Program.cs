@@ -1,6 +1,6 @@
 using course_backend.Extensions;
 using course_backend.Filters;
-using Films.Application.DependencyResolver;
+using Films.Core.Application.DependencyResolver;
 using Films.Infrastructure.DependencyResolver;
 using Films.Core.Application.Services.Gender;
 
@@ -35,7 +35,8 @@ namespace course_backend
             builder.Services.AddCustomSwagger();
             builder.Services.AddCustomCors(configuration.GetValue<string>("frontend_url") ?? string.Empty);
             builder.Services.AddInfrastructure(configuration);
-            builder.Services.AddProxiedScoped<IGenderService, GenderService>();
+            // builder.Services.AddProxiedScoped<IGenderService, GenderService>();
+            builder.Services.AddApplication();
 
             
             var app = builder.Build();

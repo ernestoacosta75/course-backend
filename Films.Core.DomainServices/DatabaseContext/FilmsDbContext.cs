@@ -9,7 +9,7 @@ namespace Films.Core.DomainServices.DatabaseContext
 
         public FilmsDbContext(DbContextOptions<FilmsDbContext> options) : base(options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

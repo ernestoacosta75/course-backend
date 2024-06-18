@@ -21,7 +21,8 @@ namespace Films.Core.DomainServices.DependencyResolver
             }
 
             services.AddDbContext<FilmsDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseSqlServer(connectionString),
+                ServiceLifetime.Scoped);
         }
     }
 }
