@@ -38,6 +38,12 @@ namespace Films.Core.Application.Services.Gender
             return _mapper.Map<GenderDto>(gender);
         }
 
+        public async Task<GenderDto?> GetGenderToUpdateById(Guid genderId)
+        {
+            var gender = await _unitOfWork.GenderRepository.GetById(genderId);
+            return _mapper.Map<GenderDto>(gender); 
+        }
+
         public void RemoveGender(Domain.Entities.Gender gender)
         {
             var genderToDelete = _unitOfWork.GenderRepository.GetById(gender.Id).Result;
@@ -49,8 +55,9 @@ namespace Films.Core.Application.Services.Gender
             }
         }
 
-        public void UpdateGender(Domain.Entities.Gender gender)
+        public void UpdateGender(GenderDto genderDto)
         {
+            var gender = _mapper.Map<Domain.Entities.Gender>(genderDto);
             _unitOfWork.GenderRepository.Update(gender);
             _unitOfWork.Save();
         }

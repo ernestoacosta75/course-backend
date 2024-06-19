@@ -37,20 +37,35 @@ public class GendersController : ControllerBase
     public async Task<ActionResult<GenderDto>> GetGenderById(Guid genderId)
     {
         GenderDto? gender = await _genderService.GetGenderById(genderId);
+
+        if (gender == null) 
+        { 
+            return NotFound();
+        }
+
         return gender;
     }
 
     [HttpPost]
-    public ActionResult Post([FromBody] GenderCreationDto gender)
+    public ActionResult Post([FromBody] GenderCreationDto genderCreationDto)
     {
-        _genderService.AddGender(gender);
+        _genderService.AddGender(genderCreationDto);
         return NoContent();
     }
     
-    [HttpPut]
-    public ActionResult Put([FromBody] Gender gender)
+    [HttpPut("{id:Guid}")]
+    public async Task<ActionResult> Put(Guid id, [FromBody] GenderDto genderDto)
     {
-        throw new NotImplementedException();
+        GenderDto gender = await _genderService.GetGenderToUpdateById(id);
+
+        if (gender == null)
+        {
+            return NotFound();
+        }
+
+        _genderService.UpdateGender(gender);
+
+        return NoContent();
     }
     
     [HttpDelete]

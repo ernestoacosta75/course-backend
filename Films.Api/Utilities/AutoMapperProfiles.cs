@@ -9,7 +9,7 @@ namespace course_backend.Utilities
         public AutoMapperProfiles()
         {
             CreateMap<Gender, GenderDto>().ReverseMap();
-            CreateMap<GenderCreationDto, Gender>();
+            CreateMap<GenderCreationDto, Gender>().ReverseMap();
         }
     }
 }
