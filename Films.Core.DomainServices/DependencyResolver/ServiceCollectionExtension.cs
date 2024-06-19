@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Films.Core.DomainServices.DependencyResolver
 {
@@ -21,7 +22,8 @@ namespace Films.Core.DomainServices.DependencyResolver
             }
 
             services.AddDbContext<FilmsDbContext>(options =>
-                options.UseSqlServer(connectionString),
+                options.UseSqlServer(connectionString)
+                .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Warning),
                 ServiceLifetime.Scoped);
         }
     }

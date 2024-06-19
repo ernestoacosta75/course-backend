@@ -19,7 +19,7 @@ namespace Films.Infrastructure.Repositories
             _dbSet = _dbContext.Set<TEntity>();
         }
         public void Add(TEntity entity)
-        {= 
+        {
             _dbSet.Add(entity);
         }
 
@@ -33,10 +33,8 @@ namespace Films.Infrastructure.Repositories
             _dbSet.Remove(entity);
         }
 
-        [Cache]
         public IQueryable<TEntity> GetAll()
         {
-            var cacheKey = 
             return _dbSet.AsQueryable();
         }
 

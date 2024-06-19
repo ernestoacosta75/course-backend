@@ -2,7 +2,7 @@ using course_backend.Extensions;
 using course_backend.Filters;
 using Films.Core.Application.DependencyResolver;
 using Films.Infrastructure.DependencyResolver;
-using Films.Core.Application.Services.Gender;
+using Serilog;
 
 namespace course_backend
 {
@@ -15,11 +15,31 @@ namespace course_backend
             // Getting configuration
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
                 .Build();
 
             // Enable logging for EF Core
-            builder.Logging.AddConsole();
+            //builder.Logging.AddConsole(options =>
+            //{
+            //    options.Format = Microsoft.Extensions.Logging.Console.ConsoleLoggerFormat.Default;
+            //    options.IncludeScopes = true; // Include scopes if needed
+            //    options.LogToStandardErrorThreshold = LogLevel.Information;
+            //});
+
+            //// Configure logging to file
+            //builder.Logging.AddFile("app.log", options =>
+            //{
+            //    options.FileSizeLimitBytes = 10 * 1024 * 1024; // 10 MB file size limit
+            //    options.RetainedFileCountLimit = 5; // Keep up to 5 log files
+            //    options.LogLevel = LogLevel.Information; // Minimum log level for file logging
+            //});
+
+            // Configure Serilog for logging to console and file
+            Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(configuration)
+            .CreateLogger();
+  
+            builder.Logging.AddSerilog();
 
             builder.Services.AddControllers(options =>
             {
@@ -60,7 +80,18 @@ namespace course_backend
 
             app.MapControllers();
 
-            app.Run();
+            try
+            {
+                app.Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Application startup failed");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
     }
 }
