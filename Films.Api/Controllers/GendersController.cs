@@ -2,7 +2,6 @@
 using Films.Api.Utilities;
 using Films.Core.Application.Models;
 using Films.Core.Application.Services.Gender;
-using Films.Core.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -56,14 +55,17 @@ public class GendersController : ControllerBase
     [HttpPut("{id:Guid}")]
     public async Task<ActionResult> Put(Guid id, [FromBody] GenderDto genderDto)
     {
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
         GenderDto gender = await _genderService.GetGenderToUpdateById(id);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         if (gender == null)
         {
             return NotFound();
         }
 
-        _genderService.UpdateGender(gender);
+        genderDto.Id = id;
+        await _genderService.UpdateGender(gender);
 
         return NoContent();
     }

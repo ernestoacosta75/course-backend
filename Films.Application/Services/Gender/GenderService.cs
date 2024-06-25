@@ -55,11 +55,19 @@ namespace Films.Core.Application.Services.Gender
             }
         }
 
-        public void UpdateGender(GenderDto genderDto)
+        public async Task UpdateGender(GenderDto genderDto)
         {
-            var gender = _mapper.Map<Domain.Entities.Gender>(genderDto);
-            _unitOfWork.GenderRepository.Update(gender);
-            _unitOfWork.Save();
+            var existingGender = await _unitOfWork.GenderRepository.GetById(genderDto.Id);
+
+            if (existingGender != null)
+            {
+                // Update properties of the existing entity with values from the Dto
+                _mapper.Map(genderDto, existingGender);
+
+                // Save the updated entity
+                _unitOfWork.GenderRepository.Update(existingGender);
+                _unitOfWork.Save();
+            }
         }
     }
 }

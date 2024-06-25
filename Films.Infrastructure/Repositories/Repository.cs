@@ -1,6 +1,5 @@
 ﻿using Films.Core.DomainServices.DatabaseContext;
 using Films.Core.DomainServices.Repositories;
-using Films.Infrastructure.Attributes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
