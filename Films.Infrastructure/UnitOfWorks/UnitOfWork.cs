@@ -37,5 +37,10 @@ namespace Films.Infrastructure.UnitOfWorks
         {
             _dbContext.SaveChanges();
         }
+
+        public async Task SaveAsync()
+        {
+            _dbContext.SaveChangesAsync();
+        }
     }
 }

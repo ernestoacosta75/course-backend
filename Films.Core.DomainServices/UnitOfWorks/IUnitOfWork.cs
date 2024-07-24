@@ -7,5 +7,6 @@ namespace Films.Core.DomainServices.UnitOfWorks
     {
         IRepository<Gender> GenderRepository { get; }
         void Save();
+        Task SaveAsync();
     }
 }

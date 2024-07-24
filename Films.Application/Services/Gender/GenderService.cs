@@ -66,7 +66,7 @@ namespace Films.Core.Application.Services.Gender
 
                 // Save the updated entity
                 _unitOfWork.GenderRepository.Update(existingGender);
-                _unitOfWork.Save();
+                await _unitOfWork.SaveAsync();
             }
         }
     }
