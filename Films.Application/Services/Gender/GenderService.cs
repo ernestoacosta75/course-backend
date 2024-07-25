@@ -44,14 +44,14 @@ namespace Films.Core.Application.Services.Gender
             return _mapper.Map<GenderDto>(gender); 
         }
 
-        public void RemoveGender(Domain.Entities.Gender gender)
+        public async Task RemoveGender(GenderDto genderDto)
         {
-            var genderToDelete = _unitOfWork.GenderRepository.GetById(gender.Id).Result;
+            var genderToDelete = _unitOfWork.GenderRepository.GetById(genderDto.Id).Result;
 
             if (genderToDelete != null)
             {
                 _unitOfWork.GenderRepository.Delete(genderToDelete);
-                _unitOfWork.Save();
+                await _unitOfWork.SaveAsync();
             }
         }
 

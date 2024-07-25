@@ -55,9 +55,7 @@ public class GendersController : ControllerBase
     [HttpPut("{id:Guid}")]
     public async Task<ActionResult> Put(Guid id, [FromBody] GenderDto genderDto)
     {
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-        GenderDto gender = await _genderService.GetGenderToUpdateById(id);
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+        var gender = await _genderService.GetGenderToUpdateById(id);
 
         if (gender == null)
         {
@@ -70,9 +68,18 @@ public class GendersController : ControllerBase
         return NoContent();
     }
     
-    [HttpDelete]
-    public ActionResult Delete()
+    [HttpDelete("{id:Guid}")]
+    public async Task<ActionResult> Delete(Guid id)
     {
-        throw new NotImplementedException();
+        var gender = await _genderService.GetGenderToUpdateById(id);
+
+        if (gender == null)
+        {
+            return NotFound();
+        }
+
+        await _genderService.RemoveGender(gender);
+
+        return NoContent();
     }
 }

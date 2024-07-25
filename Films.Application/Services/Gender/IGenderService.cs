@@ -6,7 +6,7 @@ namespace Films.Core.Application.Services.Gender
     {
         void AddGender(GenderCreationDto gender);
         Task UpdateGender(GenderDto genderDto);
-        void RemoveGender(Domain.Entities.Gender gender);
+        Task RemoveGender(GenderDto genderDto);
         Task<GenderDto?> GetGenderById(Guid genderId);
         Task<GenderDto?> GetGenderToUpdateById(Guid genderId);
         IQueryable<GenderDto> GetAllGenders();
