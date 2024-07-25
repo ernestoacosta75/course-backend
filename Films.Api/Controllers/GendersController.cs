@@ -65,7 +65,7 @@ public class GendersController : ControllerBase
         }
 
         genderDto.Id = id;
-        await _genderService.UpdateGender(gender);
+        await _genderService.UpdateGender(genderDto);
 
         return NoContent();
     }
