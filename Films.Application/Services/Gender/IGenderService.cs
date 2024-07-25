@@ -1,4 +1,4 @@
-﻿using Films.Core.Application.Models;
+﻿using Films.Core.Application.Dtos;
 
 namespace Films.Core.Application.Services.Gender
 {

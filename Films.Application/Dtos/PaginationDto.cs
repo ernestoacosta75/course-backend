@@ -1,4 +1,4 @@
-﻿namespace Films.Core.Application.Models
+﻿namespace Films.Core.Application.Dtos
 {
     public class PaginationDto
     {

@@ -1,6 +1,6 @@
 ﻿using course_backend.Utilities;
 using Films.Api.Utilities;
-using Films.Core.Application.Models;
+using Films.Core.Application.Dtos;
 using Films.Core.Application.Services.Gender;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

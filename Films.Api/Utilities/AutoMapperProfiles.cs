@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Films.Core.Application.Models;
+using Films.Core.Application.Dtos;
 using Films.Core.Domain.Entities;
 
 namespace course_backend.Utilities
@@ -10,6 +10,9 @@ namespace course_backend.Utilities
         {
             CreateMap<Gender, GenderDto>().ReverseMap();
             CreateMap<GenderCreationDto, Gender>().ReverseMap();
+            CreateMap<Actor, ActorDto>().ReverseMap();
+            CreateMap<ActorCreationDto, Actor>()
+                .ForMember(m => m.Picture, options => options.Ignore());
         }
     }
 }

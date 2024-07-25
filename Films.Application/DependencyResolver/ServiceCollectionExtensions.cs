@@ -1,4 +1,5 @@
 ﻿using Castle.DynamicProxy;
+using Films.Core.Application.Services.Actor;
 using Films.Core.Application.Services.Gender;
 using Microsoft.Extensions.DependencyInjection;
 using ProxyGenerator = Castle.DynamicProxy.ProxyGenerator;
@@ -10,6 +11,7 @@ namespace Films.Core.Application.DependencyResolver
         public static void AddApplication(this IServiceCollection services)
         {
             services.AddProxiedScoped<IGenderService, GenderService>();
+            services.AddProxiedScoped<IActorService, ActorService>();
         }
         private static void AddProxiedScoped<TInterface, TImplementation>(this IServiceCollection services)
         where TInterface : class
