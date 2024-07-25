@@ -71,7 +71,7 @@ public class GendersController : ControllerBase
     [HttpDelete("{id:Guid}")]
     public async Task<ActionResult> Delete(Guid id)
     {
-        var gender = await _genderService.GetGenderToUpdateById(id);
+        var gender = await _genderService.GetGenderById(id);
 
         if (gender == null)
         {
