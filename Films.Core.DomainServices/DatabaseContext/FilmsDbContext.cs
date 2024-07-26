@@ -6,6 +6,7 @@ namespace Films.Core.DomainServices.DatabaseContext
     public class FilmsDbContext : DbContext
     {
         public DbSet<Gender> Genders { get; set; }
+        public DbSet<Actor> Actors { get; set; }
 
         public FilmsDbContext(DbContextOptions<FilmsDbContext> options) : base(options)
         {

@@ -4,9 +4,9 @@ namespace Films.Core.Application.Services.Actor
 {
     public interface IActorService
     {
-        void AddActor(ActorCreationDto gender);
-        Task UpdateActor(ActorDto genderDto);
-        Task RemoveActor(ActorDto genderDto);
+        void AddActor(ActorCreationDto actorCreationDto);
+        Task UpdateActor(ActorDto actorDto);
+        Task RemoveActor(ActorDto actorDto);
         Task<ActorDto?> GetActorById(Guid actorId);
         Task<ActorDto?> GetActorToUpdateById(Guid actorId);
         IQueryable<ActorDto> GetAllActors();

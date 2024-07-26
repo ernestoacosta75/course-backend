@@ -6,6 +6,7 @@ namespace Films.Core.DomainServices.UnitOfWorks
     public interface IUnitOfWork : IDisposable
     {
         IRepository<Gender> GenderRepository { get; }
+        IRepository<Actor> ActorRepository { get; }
         void Save();
         Task SaveAsync();
     }
