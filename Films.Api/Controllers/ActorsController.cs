@@ -44,7 +44,7 @@ namespace Films.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] ActorCreationDto actorCreationDto)
+        public ActionResult Post([FromForm] ActorCreationDto actorCreationDto)
         {
             _actorService.AddActor(actorCreationDto);
             return NoContent();
