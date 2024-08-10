@@ -69,6 +69,8 @@ namespace course_backend
             }
 
             app.UseHttpsRedirection();
+            
+            app.UseStaticFiles();
 
             app.UseRouting();
 
