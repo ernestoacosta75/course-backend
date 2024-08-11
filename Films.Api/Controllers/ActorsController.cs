@@ -26,6 +26,11 @@ namespace Films.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<List<ActorDto>>> GetAllActors([FromQuery] PaginationDto paginationDto)
         {
+            if (paginationDto is null)
+            {
+                throw new ArgumentNullException(nameof(paginationDto));
+            }
+
             var queryable = _actorService.GetAllActors();
             await HttpContext.InsertPaginationParametersInHeader(queryable);
             var actors = await queryable
