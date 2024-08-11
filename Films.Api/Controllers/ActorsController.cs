@@ -2,6 +2,7 @@
 using Films.Api.Utilities;
 using Films.Core.Application.Dtos;
 using Films.Core.Application.Services.Actor;
+using Films.Core.Application.Services.Archives;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,9 +13,14 @@ namespace Films.Api.Controllers
     public class ActorsController : ControllerBase
     {
         private readonly IActorService _actorService;
-        public ActorsController(IActorService actorService)
+        private readonly ILocalArchiveStorageService _localArchiveStorageService;
+        private readonly string container = "actors";
+
+        public ActorsController(IActorService actorService, 
+            ILocalArchiveStorageService localArchiveStorageService)
         {
             _actorService = actorService;
+            _localArchiveStorageService = localArchiveStorageService;
         }
 
         [HttpGet]
@@ -44,8 +50,18 @@ namespace Films.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromForm] ActorCreationDto actorCreationDto)
+        public async Task<ActionResult> Post([FromForm] ActorCreationDto actorCreationDto)
         {
+            if (actorCreationDto is null)
+            {
+                throw new ArgumentNullException(nameof(actorCreationDto));
+            }
+
+            if (actorCreationDto.Picture != null)
+            {
+                await _localArchiveStorageService.SaveArchive(container, actorCreationDto.Picture);
+            }
+
             _actorService.AddActor(actorCreationDto);
             return NoContent();
         }
@@ -53,6 +69,11 @@ namespace Films.Api.Controllers
         [HttpPut("{id:Guid}")]
         public async Task<ActionResult> Put(Guid id, [FromBody] ActorDto actorDto)
         {
+            if (actorDto is null)
+            {
+                throw new ArgumentNullException(nameof(actorDto));
+            }
+
             var actor = await _actorService.GetActorToUpdateById(id);
 
             if (actor == null)

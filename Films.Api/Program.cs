@@ -56,6 +56,8 @@ namespace course_backend
             builder.Services.AddCustomCors(configuration.GetValue<string>("frontend_url") ?? string.Empty);
             builder.Services.AddInfrastructure(configuration);
             // builder.Services.AddProxiedScoped<IGenderService, GenderService>();
+
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddApplication();
 
             
