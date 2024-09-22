@@ -17,9 +17,9 @@ namespace Films.Core.Application.Services.Actor
         }
 
         [Log]
-        public void AddActor(ActorCreationDto actorCreationDto)
+        public void AddActor(ActorDto actorDto)
         {
-            _unitOfWork.ActorRepository.Add(_mapper.Map<Domain.Entities.Actor>(actorCreationDto));
+            _unitOfWork.ActorRepository.Add(_mapper.Map<Domain.Entities.Actor>(actorDto));
             _unitOfWork.Save();
         }
 

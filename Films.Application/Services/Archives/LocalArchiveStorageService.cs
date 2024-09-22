@@ -92,10 +92,10 @@ namespace Films.Core.Application.Services.Archives
             var currentUrl = $"{_httpContextAccessor.HttpContext.Request.Scheme}" +
                 $"://{_httpContextAccessor.HttpContext.Request.Host}";
 
-            var forDbRoute = Path.Combine(currentUrl, container, archiveName)
+            var routeForDb = Path.Combine(currentUrl, container, archiveName)
                 .Replace("\\", "/");
 
-            return forDbRoute;
+            return routeForDb;
         }
     }
 }

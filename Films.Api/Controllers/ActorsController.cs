@@ -57,6 +57,8 @@ namespace Films.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromForm] ActorCreationDto actorCreationDto)
         {
+            string pictureUrl = string.Empty;
+
             if (actorCreationDto is null)
             {
                 throw new ArgumentNullException(nameof(actorCreationDto));
@@ -64,10 +66,17 @@ namespace Films.Api.Controllers
 
             if (actorCreationDto.Picture != null)
             {
-                await _localArchiveStorageService.SaveArchive(container, actorCreationDto.Picture);
+                pictureUrl = await _localArchiveStorageService.SaveArchive(container, actorCreationDto.Picture);
             }
 
-            _actorService.AddActor(actorCreationDto);
+            _actorService.AddActor(new ActorDto
+            {
+                Biography = actorCreationDto.Biography,
+                DateOfBirth = actorCreationDto.DateOfBirth,
+                Name = actorCreationDto.Name,
+                Picture = pictureUrl
+            });
+
             return NoContent();
         }
 

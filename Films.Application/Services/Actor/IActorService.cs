@@ -4,7 +4,7 @@ namespace Films.Core.Application.Services.Actor
 {
     public interface IActorService
     {
-        void AddActor(ActorCreationDto actorCreationDto);
+        void AddActor(ActorDto actorDto);
         Task UpdateActor(ActorDto actorDto);
         Task RemoveActor(ActorDto actorDto);
         Task<ActorDto?> GetActorById(Guid actorId);
