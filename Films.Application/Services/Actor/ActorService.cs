@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Films.Core.Application.Dtos;
+using Films.Core.Domain.Entities;
 using Films.Core.DomainServices.UnitOfWorks;
 using Films.Infrastructure.Attributes;
 
@@ -24,15 +25,17 @@ namespace Films.Core.Application.Services.Actor
         }
 
         [Log]
-        public Task<ActorDto?> GetActorById(Guid actorId)
+        public async Task<ActorDto?> GetActorById(Guid actorId)
         {
-            throw new NotImplementedException();
+            var actor = await _unitOfWork.ActorRepository.GetById(actorId);
+            return _mapper.Map<ActorDto>(actor);
         }
 
         [Log]
-        public Task<ActorDto?> GetActorToUpdateById(Guid actorId)
+        public async Task<ActorDto?> GetActorToUpdateById(Guid actorId)
         {
-            throw new NotImplementedException();
+            var actor = await _unitOfWork.ActorRepository.GetById(actorId);
+            return _mapper.Map<ActorDto>(actor);
         }
 
         [Log]
@@ -45,9 +48,15 @@ namespace Films.Core.Application.Services.Actor
         }
 
         [Log]
-        public Task RemoveActor(ActorDto genderDto)
+        public async Task RemoveActor(ActorDto actorDto)
         {
-            throw new NotImplementedException();
+            var actorToDelete = _unitOfWork.ActorRepository.GetById(actorDto.Id).Result;
+
+            if (actorToDelete != null)
+            {
+                _unitOfWork.ActorRepository.Delete(actorToDelete);
+                await _unitOfWork.SaveAsync();
+            }
         }
 
         [Log]
