@@ -60,9 +60,19 @@ namespace Films.Core.Application.Services.Actor
         }
 
         [Log]
-        public Task UpdateActor(ActorDto genderDto)
+        public async Task UpdateActor(ActorDto actorDto)
         {
-            throw new NotImplementedException();
+            var existingActor = await _unitOfWork.ActorRepository.GetById(actorDto.Id);
+
+            if (existingActor != null)
+            {
+                // Update properties of the existing entity with values from the Dto
+                _mapper.Map(actorDto, existingActor);
+
+                // Save the updated entity
+                _unitOfWork.ActorRepository.Update(existingActor);
+                await _unitOfWork.SaveAsync();
+            }
         }
     }
 }
