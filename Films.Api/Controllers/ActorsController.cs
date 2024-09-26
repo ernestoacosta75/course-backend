@@ -83,6 +83,8 @@ namespace Films.Api.Controllers
         [HttpPut("{id:Guid}")]
         public async Task<ActionResult> Put(Guid id, [FromBody] ActorDto actorDto)
         {
+            string pictureUrl = string.Empty;
+
             if (actorDto is null)
             {
                 throw new ArgumentNullException(nameof(actorDto));
@@ -95,8 +97,13 @@ namespace Films.Api.Controllers
                 return NotFound();
             }
 
+            if (actorDto.Picture != null)
+            {
+                pictureUrl = await _localArchiveStorageService.EditArchive(container, actor.Picture, actorDto.Picture);
+            }
+
             actorDto.Id = id;
-            actorDto.Id = id;
+            actorDto.Picture = pictureUrl;
             await _actorService.UpdateActor(actorDto);
 
             return NoContent();
