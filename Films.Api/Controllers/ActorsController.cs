@@ -81,25 +81,26 @@ namespace Films.Api.Controllers
         }
 
         [HttpPut("{id:Guid}")]
-        public async Task<ActionResult> Put(Guid id, [FromBody] ActorDto actorDto)
+        public async Task<ActionResult> Put(Guid id, [FromForm] ActorCreationDto actorCreationDto)
         {
             string pictureUrl = string.Empty;
 
-            if (actorDto is null)
+            if (actorCreationDto is null)
             {
-                throw new ArgumentNullException(nameof(actorDto));
+                throw new ArgumentNullException(nameof(actorCreationDto));
             }
 
-            var actor = await _actorService.GetActorToUpdateById(id);
+            var actorDto = await _actorService.GetActorToUpdateById(id);
 
-            if (actor == null)
+            if (actorDto == null)
             {
                 return NotFound();
             }
 
-            if (actorDto.Picture != null)
+            if (actorCreationDto.Picture != null)
             {
-                pictureUrl = await _localArchiveStorageService.EditArchive(container, actor.Picture, actorDto.Picture);
+                pictureUrl = await _localArchiveStorageService
+                    .EditArchive(container, actorCreationDto.Picture, actorDto.Picture);
             }
 
             actorDto.Id = id;
@@ -112,14 +113,15 @@ namespace Films.Api.Controllers
         [HttpDelete("{id:Guid}")]
         public async Task<ActionResult> Delete(Guid id)
         {
-            var actor = await _actorService.GetActorById(id);
+            var actorDto = await _actorService.GetActorById(id);
 
-            if (actor == null)
+            if (actorDto == null)
             {
                 return NotFound();
             }
 
-            await _actorService.RemoveActor(actor);
+            await _actorService.RemoveActor(actorDto);
+            await _localArchiveStorageService.RemoveArchive(actorDto.Picture, container);
 
             return NoContent();
         }

@@ -32,10 +32,10 @@ namespace Films.Core.Application.Services.Actor
         }
 
         [Log]
-        public async Task<ActorCreationDto?> GetActorToUpdateById(Guid actorId)
+        public async Task<ActorDto?> GetActorToUpdateById(Guid actorId)
         {
             var actor = await _unitOfWork.ActorRepository.GetById(actorId);
-            return _mapper.Map<ActorCreationDto>(actor);
+            return _mapper.Map<ActorDto>(actor);
         }
 
         [Log]
