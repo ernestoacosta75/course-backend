@@ -11,12 +11,14 @@ namespace Films.Infrastructure.UnitOfWorks
         private bool _disposed = false;
         public IRepository<Gender> GenderRepository { get; }
         public IRepository<Actor> ActorRepository { get; }
+        public IRepository<Cinema> CinemaRepository { get; }
 
-        public UnitOfWork(FilmsDbContext dbContext, IRepository<Gender> genderRepository, IRepository<Actor> actorRepository)
+        public UnitOfWork(FilmsDbContext dbContext, IRepository<Gender> genderRepository, IRepository<Actor> actorRepository, IRepository<Cinema> cinemaRepository)
         {
             _dbContext = dbContext;
             GenderRepository = genderRepository;
             ActorRepository = actorRepository;
+            CinemaRepository = cinemaRepository;
         }
 
         public void Dispose()

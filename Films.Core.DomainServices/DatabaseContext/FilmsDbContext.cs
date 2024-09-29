@@ -8,6 +8,8 @@ namespace Films.Core.DomainServices.DatabaseContext
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Actor> Actors { get; set; }
 
+        public DbSet<Cinema> Cinemas { get; set; }
+
         public FilmsDbContext(DbContextOptions<FilmsDbContext> options) : base(options)
         {
 

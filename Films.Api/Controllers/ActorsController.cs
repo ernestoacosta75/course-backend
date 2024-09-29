@@ -6,124 +6,123 @@ using Films.Core.Application.Services.Archives;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Films.Api.Controllers
+namespace Films.Api.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class ActorsController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ActorsController : ControllerBase
+    private readonly IActorService _actorService;
+    private readonly ILocalArchiveStorageService _localArchiveStorageService;
+    private readonly string container = "actors";
+
+    public ActorsController(IActorService actorService, 
+        ILocalArchiveStorageService localArchiveStorageService)
     {
-        private readonly IActorService _actorService;
-        private readonly ILocalArchiveStorageService _localArchiveStorageService;
-        private readonly string container = "actors";
+        _actorService = actorService;
+        _localArchiveStorageService = localArchiveStorageService;
+    }
 
-        public ActorsController(IActorService actorService, 
-            ILocalArchiveStorageService localArchiveStorageService)
+    [HttpGet]
+    public async Task<ActionResult<List<ActorDto>>> GetAllActors([FromQuery] PaginationDto paginationDto)
+    {
+        if (paginationDto is null)
         {
-            _actorService = actorService;
-            _localArchiveStorageService = localArchiveStorageService;
+            throw new ArgumentNullException(nameof(paginationDto));
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<ActorDto>>> GetAllActors([FromQuery] PaginationDto paginationDto)
+        var queryable = _actorService.GetAllActors();
+        await HttpContext.InsertPaginationParametersInHeader(queryable);
+        var actors = await queryable
+            .OrderBy(x => x.Name)
+            .Paginate(paginationDto)
+            .ToListAsync();
+
+        return actors;
+    }
+
+    [HttpGet("{id:Guid}")]
+    public async Task<ActionResult<ActorDto>> GetActorById(Guid id)
+    {
+        ActorDto? actor = await _actorService.GetActorById(id);
+
+        if (actor == null)
         {
-            if (paginationDto is null)
-            {
-                throw new ArgumentNullException(nameof(paginationDto));
-            }
-
-            var queryable = _actorService.GetAllActors();
-            await HttpContext.InsertPaginationParametersInHeader(queryable);
-            var actors = await queryable
-                .OrderBy(x => x.Name)
-                .Paginate(paginationDto)
-                .ToListAsync();
-
-            return actors;
+            return NotFound();
         }
 
-        [HttpGet("{id:Guid}")]
-        public async Task<ActionResult<ActorDto>> GetActorById(Guid id)
+        return actor;
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Post([FromForm] ActorCreationDto actorCreationDto)
+    {
+        string pictureUrl = string.Empty;
+
+        if (actorCreationDto is null)
         {
-            ActorDto? actor = await _actorService.GetActorById(id);
-
-            if (actor == null)
-            {
-                return NotFound();
-            }
-
-            return actor;
+            throw new ArgumentNullException(nameof(actorCreationDto));
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Post([FromForm] ActorCreationDto actorCreationDto)
+        if (actorCreationDto.Picture != null)
         {
-            string pictureUrl = string.Empty;
-
-            if (actorCreationDto is null)
-            {
-                throw new ArgumentNullException(nameof(actorCreationDto));
-            }
-
-            if (actorCreationDto.Picture != null)
-            {
-                pictureUrl = await _localArchiveStorageService.SaveArchive(container, actorCreationDto.Picture);
-            }
-
-            _actorService.AddActor(new ActorDto
-            {
-                Biography = actorCreationDto.Biography,
-                DateOfBirth = actorCreationDto.DateOfBirth,
-                Name = actorCreationDto.Name,
-                Picture = pictureUrl
-            });
-
-            return NoContent();
+            pictureUrl = await _localArchiveStorageService.SaveArchive(container, actorCreationDto.Picture);
         }
 
-        [HttpPut("{id:Guid}")]
-        public async Task<ActionResult> Put(Guid id, [FromForm] ActorCreationDto actorCreationDto)
+        _actorService.AddActor(new ActorDto
         {
-            string pictureUrl = string.Empty;
+            Biography = actorCreationDto.Biography,
+            DateOfBirth = actorCreationDto.DateOfBirth,
+            Name = actorCreationDto.Name,
+            Picture = pictureUrl
+        });
 
-            if (actorCreationDto is null)
-            {
-                throw new ArgumentNullException(nameof(actorCreationDto));
-            }
+        return NoContent();
+    }
 
-            var actorDto = await _actorService.GetActorToUpdateById(id);
+    [HttpPut("{id:Guid}")]
+    public async Task<ActionResult> Put(Guid id, [FromForm] ActorCreationDto actorCreationDto)
+    {
+        string pictureUrl = string.Empty;
 
-            if (actorDto == null)
-            {
-                return NotFound();
-            }
-
-            if (actorCreationDto.Picture != null)
-            {
-                pictureUrl = await _localArchiveStorageService
-                    .EditArchive(container, actorCreationDto.Picture, actorDto.Picture);
-            }
-
-            actorDto.Id = id;
-            actorDto.Picture = pictureUrl;
-            await _actorService.UpdateActor(actorDto);
-
-            return NoContent();
+        if (actorCreationDto is null)
+        {
+            throw new ArgumentNullException(nameof(actorCreationDto));
         }
 
-        [HttpDelete("{id:Guid}")]
-        public async Task<ActionResult> Delete(Guid id)
+        var actorDto = await _actorService.GetActorToUpdateById(id);
+
+        if (actorDto == null)
         {
-            var actorDto = await _actorService.GetActorById(id);
-
-            if (actorDto == null)
-            {
-                return NotFound();
-            }
-
-            await _actorService.RemoveActor(actorDto);
-            await _localArchiveStorageService.RemoveArchive(actorDto.Picture, container);
-
-            return NoContent();
+            return NotFound();
         }
+
+        if (actorCreationDto.Picture != null)
+        {
+            pictureUrl = await _localArchiveStorageService
+                .EditArchive(container, actorCreationDto.Picture, actorDto.Picture);
+        }
+
+        actorDto.Id = id;
+        actorDto.Picture = pictureUrl;
+        await _actorService.UpdateActor(actorDto);
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id:Guid}")]
+    public async Task<ActionResult> Delete(Guid id)
+    {
+        var actorDto = await _actorService.GetActorById(id);
+
+        if (actorDto == null)
+        {
+            return NotFound();
+        }
+
+        await _actorService.RemoveActor(actorDto);
+        await _localArchiveStorageService.RemoveArchive(actorDto.Picture, container);
+
+        return NoContent();
     }
 }

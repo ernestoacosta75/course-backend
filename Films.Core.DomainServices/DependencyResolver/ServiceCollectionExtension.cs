@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
 
 namespace Films.Core.DomainServices.DependencyResolver
 {
@@ -22,9 +24,15 @@ namespace Films.Core.DomainServices.DependencyResolver
             }
 
             services.AddDbContext<FilmsDbContext>(options =>
-                options.UseSqlServer(connectionString)
+                options.UseSqlServer(connectionString, sqlServer =>
+                {
+                    sqlServer.UseNetTopologySuite();
+                })
                 .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Warning),
                 ServiceLifetime.Scoped);
+
+            services
+                .AddSingleton<GeometryFactory>(NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326));
         }
     }
 }
