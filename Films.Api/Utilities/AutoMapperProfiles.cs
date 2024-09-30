@@ -18,7 +18,14 @@ namespace course_backend.Utilities
             CreateMap<CinemaCreationDto, Cinema>()
                 .ForMember(c => c.Location, 
                 c => c.MapFrom(dto => geometryFactory
-                .CreatePoint(new Coordinate(dto.Longitude, dto.Latitude))));
+                .CreatePoint(new Coordinate(dto.Longitude, dto.Latitude))))
+                .ReverseMap();
+
+            CreateMap<CinemaDto, Cinema>()
+                .ForMember(c => c.Location,
+                c => c.MapFrom(dto => geometryFactory
+                .CreatePoint(new Coordinate(dto.Longitude, dto.Latitude))))
+                .ReverseMap();
         }
     }
 }

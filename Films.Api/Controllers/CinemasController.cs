@@ -1,7 +1,9 @@
-﻿using Films.Api.Utilities;
+﻿using course_backend.Utilities;
+using Films.Api.Utilities;
 using Films.Core.Application.Dtos;
 using Films.Core.Application.Services.Cinema;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Films.Api.Controllers;
 
@@ -45,7 +47,7 @@ public class CinemasController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> Post([FromForm] CinemaCreationDto cinemaCreationDto)
+    public ActionResult Post([FromBody] CinemaCreationDto cinemaCreationDto)
     {
         ArgumentNullException.ThrowIfNull(cinemaCreationDto, nameof(cinemaCreationDto));
 
