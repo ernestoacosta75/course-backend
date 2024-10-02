@@ -22,10 +22,12 @@ namespace course_backend.Utilities
                 .ReverseMap();
 
             CreateMap<CinemaDto, Cinema>()
-                .ForMember(c => c.Location,
-                c => c.MapFrom(dto => geometryFactory
-                .CreatePoint(new Coordinate(dto.Longitude, dto.Latitude))))
-                .ReverseMap();
+            .ForMember(c => c.Location, c => c.MapFrom(dto =>
+                geometryFactory.CreatePoint(new Coordinate(dto.Longitude, dto.Latitude))))
+            .ReverseMap()
+            // Map Latitude and Longitude from the Location property
+            .ForMember(dto => dto.Latitude, c => c.MapFrom(cinema => cinema.Location.Y))
+            .ForMember(dto => dto.Longitude, c => c.MapFrom(cinema => cinema.Location.X));
         }
     }
 }

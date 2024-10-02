@@ -55,4 +55,19 @@ public class CinemasController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpPut]
+    public async Task<ActionResult> Put([FromBody] CinemaDto cinemaDto)
+    {
+        var cinema = await _cinemaService.GetCinemaById(cinemaDto.Id);
+
+        if (cinema == null)
+        {
+            return NotFound();
+        }
+
+        await _cinemaService.UpdateCinema(cinemaDto);
+
+        return NoContent();
+    }
 }

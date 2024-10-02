@@ -54,14 +54,14 @@ public class CinemaService : ICinemaService
     [Log]
     public async Task UpdateCinema(CinemaDto cinemaDto)
     {
-        var existingCinema = await _unitOfWork.GenderRepository.GetById(cinemaDto.Id);
+        var existingCinema = await _unitOfWork.CinemaRepository.GetById(cinemaDto.Id);
 
         if (existingCinema != null)
         {
             _mapper.Map(cinemaDto, existingCinema);
 
             // Save the updated entity
-            _unitOfWork.GenderRepository.Update(existingCinema);
+            _unitOfWork.CinemaRepository.Update(existingCinema);
             await _unitOfWork.SaveAsync();
         }
     }
