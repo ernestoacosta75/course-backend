@@ -13,5 +13,8 @@ namespace Films.Core.Domain.Entities
         public string Biography { get; set; } = string.Empty;
         public DateTime DateOfBirth { get; set; }
         public string Picture { get; set; } = string.Empty;
+
+        // Navigation properties
+        public List<FilmsActors> FilmsActors { get; set; } = [];
     }
 }

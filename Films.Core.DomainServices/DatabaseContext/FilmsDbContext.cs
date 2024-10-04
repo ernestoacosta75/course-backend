@@ -9,6 +9,10 @@ namespace Films.Core.DomainServices.DatabaseContext
         public DbSet<Actor> Actors { get; set; }
 
         public DbSet<Cinema> Cinemas { get; set; }
+        public DbSet<Film> Films { get; set; }
+        public DbSet<FilmsActors> FilmsActors { get; set; }
+        public DbSet<FilmsGenders> FilmsGenders { get; set; }
+        public DbSet<FilmsCinemas> FilmsCinemas { get; set; }
 
         public FilmsDbContext(DbContextOptions<FilmsDbContext> options) : base(options)
         {
@@ -17,7 +21,16 @@ namespace Films.Core.DomainServices.DatabaseContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Empty by the moment
+            modelBuilder.Entity<FilmsActors>()
+                .HasKey(k => new { k.ActorId, k.FilmId });
+
+            modelBuilder.Entity<FilmsGenders>()
+                .HasKey(k => new { k.FilmId, k.GenderId });
+
+            modelBuilder.Entity<FilmsCinemas>()
+                .HasKey(k => new { k.FilmId, k.CinemaId });
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

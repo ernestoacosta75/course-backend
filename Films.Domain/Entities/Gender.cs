@@ -11,5 +11,8 @@ namespace Films.Core.Domain.Entities
         [StringLength(maximumLength: 10)]
         [FirstLetterUppercase]
         public string Name { get; set; } = string.Empty;
+
+        // Navigation properties
+        public List<FilmsGenders> FilmsGenders { get; set; } = [];
     }
 }
