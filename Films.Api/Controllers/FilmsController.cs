@@ -1,12 +1,9 @@
 ﻿using course_backend.Utilities;
 using Films.Api.Utilities;
 using Films.Core.Application.Dtos;
-using Films.Core.Application.Dtos.Actor;
-using Films.Core.Application.Dtos.Cinema;
 using Films.Core.Application.Dtos.Film;
 using Films.Core.Application.Services.Archives;
 using Films.Core.Application.Services.Film;
-using Films.Core.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
