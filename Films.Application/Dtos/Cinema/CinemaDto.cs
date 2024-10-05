@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Films.Core.Application.Dtos
+namespace Films.Core.Application.Dtos.Cinema
 {
     public class CinemaDto
     {

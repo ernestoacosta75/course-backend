@@ -1,4 +1,4 @@
-﻿namespace Films.Core.Application.Dtos
+﻿namespace Films.Core.Application.Dtos.Gender
 {
     public class GenderDto
     {

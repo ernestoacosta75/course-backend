@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Films.Core.Application.Dtos
+﻿namespace Films.Core.Application.Dtos.Actor
 {
     public class ActorDto : ActorBaseDto
     {

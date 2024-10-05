@@ -1,6 +1,7 @@
 ﻿using course_backend.Utilities;
 using Films.Api.Utilities;
 using Films.Core.Application.Dtos;
+using Films.Core.Application.Dtos.Cinema;
 using Films.Core.Application.Services.Cinema;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

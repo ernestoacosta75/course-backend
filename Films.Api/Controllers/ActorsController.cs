@@ -1,6 +1,8 @@
 ﻿using course_backend.Utilities;
 using Films.Api.Utilities;
 using Films.Core.Application.Dtos;
+using Films.Core.Application.Dtos.Actor;
+using Films.Core.Application.Dtos.Film;
 using Films.Core.Application.Services.Actor;
 using Films.Core.Application.Services.Archives;
 using Microsoft.AspNetCore.Mvc;
@@ -57,13 +59,10 @@ public class ActorsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> Post([FromForm] ActorCreationDto actorCreationDto)
     {
+        ArgumentNullException.ThrowIfNull(actorCreationDto, nameof(actorCreationDto));
+
         string pictureUrl = string.Empty;
-
-        if (actorCreationDto is null)
-        {
-            throw new ArgumentNullException(nameof(actorCreationDto));
-        }
-
+        
         if (actorCreationDto.Picture != null)
         {
             pictureUrl = await _localArchiveStorageService.SaveArchive(container, actorCreationDto.Picture);

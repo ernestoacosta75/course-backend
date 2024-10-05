@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Films.Core.Domain.Entities;
+namespace Films.Core.Application.Dtos.Film;
 
-public class Film
+public abstract class FilmBaseDto
 {
     public Guid Id { get; set; }
-
     [Required]
     [StringLength(maximumLength: 300)]
     public string Title { get; set; } = string.Empty;
@@ -14,9 +13,4 @@ public class Film
     public bool OnCinemas { get; set; } = false;
     public DateTime ReleaseDate { get; set; }
     public string Poster { get; set; } = string.Empty;
-
-    // Navigation properties
-    public List<FilmsActors> FilmsActors { get; set; } = [];
-    public List<FilmsGenders> FilmsGenders { get; set; } = [];
-    public List<FilmsCinemas> FilmsCinemas { get; set; } = [];
 }

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Films.Core.Application.Dtos;
+using Films.Core.Application.Dtos.Cinema;
 using Films.Core.DomainServices.UnitOfWorks;
 using Films.Infrastructure.Attributes;
 

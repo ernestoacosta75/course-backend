@@ -1,4 +1,4 @@
-﻿using Films.Core.Application.Dtos;
+﻿using Films.Core.Application.Dtos.Actor;
 
 namespace Films.Core.Application.Services.Actor
 {
