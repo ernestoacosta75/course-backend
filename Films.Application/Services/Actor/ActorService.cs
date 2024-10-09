@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Films.Core.Application.Dtos.Actor;
+using Films.Core.Application.Services.Archives;
 using Films.Core.Domain.Entities;
 using Films.Core.DomainServices.UnitOfWorks;
 using Films.Infrastructure.Attributes;
@@ -10,11 +11,15 @@ namespace Films.Core.Application.Services.Actor
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ILocalArchiveStorageService _localArchiveStorageService;
+        private readonly string container = "actors";
 
-        public ActorService(IUnitOfWork unitOfWork, IMapper mapper)
+        public ActorService(IUnitOfWork unitOfWork, IMapper mapper,
+            ILocalArchiveStorageService localArchiveStorageService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _localArchiveStorageService = localArchiveStorageService;
         }
 
         [Log]
@@ -60,14 +65,22 @@ namespace Films.Core.Application.Services.Actor
         }
 
         [Log]
-        public async Task UpdateActor(ActorDto actorDto)
-        {
-            var existingActor = await _unitOfWork.ActorRepository.GetById(actorDto.Id);
+        public async Task UpdateActor(Guid id, ActorCreationDto actorCreationDto)
+        {            
+            var existingActor = await _unitOfWork.ActorRepository.GetById(id);
+            string pictureUrl = existingActor.Picture;
 
             if (existingActor != null)
             {
+                if (actorCreationDto.Picture != null)
+                {
+                    pictureUrl = await _localArchiveStorageService
+                        .EditArchive(container, actorCreationDto.Picture, existingActor.Picture);
+                }
+
                 // Update properties of the existing entity with values from the Dto
-                _mapper.Map(actorDto, existingActor);
+                _mapper.Map(actorCreationDto, existingActor);
+                existingActor.Picture = pictureUrl;
 
                 // Save the updated entity
                 _unitOfWork.ActorRepository.Update(existingActor);

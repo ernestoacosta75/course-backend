@@ -82,12 +82,7 @@ public class ActorsController : ControllerBase
     [HttpPut("{id:Guid}")]
     public async Task<ActionResult> Put(Guid id, [FromForm] ActorCreationDto actorCreationDto)
     {
-        string pictureUrl = string.Empty;
-
-        if (actorCreationDto is null)
-        {
-            throw new ArgumentNullException(nameof(actorCreationDto));
-        }
+        ArgumentNullException.ThrowIfNull(actorCreationDto, nameof(actorCreationDto));
 
         var actorDto = await _actorService.GetActorToUpdateById(id);
 
@@ -96,15 +91,7 @@ public class ActorsController : ControllerBase
             return NotFound();
         }
 
-        if (actorCreationDto.Picture != null)
-        {
-            pictureUrl = await _localArchiveStorageService
-                .EditArchive(container, actorCreationDto.Picture, actorDto.Picture);
-        }
-
-        actorDto.Id = id;
-        actorDto.Picture = pictureUrl;
-        await _actorService.UpdateActor(actorDto);
+        await _actorService.UpdateActor(id, actorCreationDto);
 
         return NoContent();
     }

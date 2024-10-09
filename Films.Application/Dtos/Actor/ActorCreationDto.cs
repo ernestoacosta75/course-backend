@@ -4,5 +4,5 @@ namespace Films.Core.Application.Dtos.Actor;
 
 public class ActorCreationDto : ActorBaseDto
 {
-    public IFormFile Picture { get; set; }
+    public IFormFile? Picture { get; set; }
 }

@@ -16,7 +16,8 @@ namespace course_backend.Utilities
             CreateMap<GenderCreationDto, Gender>().ReverseMap();
             CreateMap<Actor, ActorDto>().ReverseMap();
             CreateMap<ActorCreationDto, Actor>()
-                .ForMember(m => m.Picture, options => options.Ignore());
+                .ForMember(m => m.Picture, options => options.Ignore())
+                .ForMember(m => m.Id, options => options.Ignore());
 
             CreateMap<CinemaCreationDto, Cinema>()
                 .ForMember(c => c.Location, 
