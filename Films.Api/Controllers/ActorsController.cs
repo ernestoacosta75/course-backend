@@ -70,6 +70,7 @@ public class ActorsController : ControllerBase
 
         _actorService.AddActor(new ActorDto
         {
+            Id = Guid.NewGuid(),
             Biography = actorCreationDto.Biography,
             DateOfBirth = actorCreationDto.DateOfBirth,
             Name = actorCreationDto.Name,
