@@ -9,7 +9,7 @@ public class FilmCreationDto : FilmBaseDto
 {
     public IFormFile Poster { get; set; }
     [ModelBinder(BinderType = typeof(TypeBinder<List<int>>))]
-    public List<Guid> GenderIds { get; set; } = [];
+    public List<Guid> CategoryIds { get; set; } = [];
     [ModelBinder(BinderType = typeof(TypeBinder<List<int>>))]
     public List<Guid> CinemaIds { get; set; } = [];
     [ModelBinder(BinderType = typeof(TypeBinder<List<ActorFilmCreationDto>>))]

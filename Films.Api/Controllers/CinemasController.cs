@@ -71,4 +71,19 @@ public class CinemasController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpDelete("{id:Guid}")]
+    public async Task<ActionResult> Delete(Guid id)
+    {
+        var cinema = await _cinemaService.GetCinemaById(id);
+
+        if (cinema == null)
+        {
+            return NotFound();
+        }
+
+        await _cinemaService.RemoveCinema(cinema);
+
+        return NoContent();
+    }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Films.Core.Domain.Entities
 {
-    public class Gender
+    public class Category
     {
         public Guid Id { get; set; }
 
@@ -13,6 +13,6 @@ namespace Films.Core.Domain.Entities
         public string Name { get; set; } = string.Empty;
 
         // Navigation properties
-        public List<FilmsGenders> FilmsGenders { get; set; } = [];
+        public List<FilmsCategories> FilmsCategories { get; set; } = [];
     }
 }

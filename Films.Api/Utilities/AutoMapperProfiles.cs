@@ -12,8 +12,8 @@ namespace course_backend.Utilities
     {
         public AutoMapperProfiles(GeometryFactory geometryFactory)
         {
-            CreateMap<Gender, CategoryDto>().ReverseMap();
-            CreateMap<CategoryCreationDto, Gender>().ReverseMap();
+            CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<CategoryCreationDto, Category>().ReverseMap();
             CreateMap<Actor, ActorDto>().ReverseMap();
             CreateMap<ActorCreationDto, Actor>()
                 .ForMember(m => m.Picture, options => options.Ignore())
@@ -37,26 +37,26 @@ namespace course_backend.Utilities
 
             CreateMap<FilmCreationDto, Film>()
                 .ForMember(m => m.Poster, options => options.Ignore())
-                .ForMember(m => m.FilmsGenders, options => options.MapFrom(FilmsGendersMap))
+                .ForMember(m => m.FilmsCategories, options => options.MapFrom(FilmsCategoriesMap))
                 .ForMember(m => m.FilmsCinemas, options => options.MapFrom(FilmsCinemasMap))
                 .ForMember(m => m.FilmsActors, options => options.MapFrom(FilmsActorsMap))
                 .ReverseMap();
         }
 
-        private List<FilmsGenders> FilmsGendersMap(FilmCreationDto filmCreationDto, Film film)
+        private List<FilmsCategories> FilmsCategoriesMap(FilmCreationDto filmCreationDto, Film film)
         {
-            var result = new List<FilmsGenders>();
+            var result = new List<FilmsCategories>();
 
-            if (filmCreationDto.GenderIds == null)
+            if (filmCreationDto.CategoryIds == null)
             {
                 return result;
             }
 
-            foreach (var genderId in filmCreationDto.GenderIds)
+            foreach (var CategoryId in filmCreationDto.CategoryIds)
             {
-                result.Add(new FilmsGenders
+                result.Add(new FilmsCategories
                 {
-                    GenderId = genderId
+                    CategoryId = CategoryId
                 });
             }
 

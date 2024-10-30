@@ -9,17 +9,17 @@ namespace Films.Infrastructure.UnitOfWorks
     {
         private readonly FilmsDbContext _dbContext;
         private bool _disposed = false;
-        public IRepository<Gender> GenderRepository { get; }
+        public IRepository<Category> CategoryRepository { get; }
         public IRepository<Actor> ActorRepository { get; }
         public IRepository<Cinema> CinemaRepository { get; }
         public IRepository<Film> FilmRepository { get; }
 
-        public UnitOfWork(FilmsDbContext dbContext, IRepository<Gender> genderRepository,
+        public UnitOfWork(FilmsDbContext dbContext, IRepository<Category> categoryRepository,
                           IRepository<Actor> actorRepository, IRepository<Cinema> cinemaRepository,
                           IRepository<Film> filmRepository)
         {
             _dbContext = dbContext;
-            GenderRepository = genderRepository;
+            CategoryRepository = categoryRepository;
             ActorRepository = actorRepository;
             CinemaRepository = cinemaRepository;
             FilmRepository = filmRepository;

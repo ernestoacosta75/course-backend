@@ -4,6 +4,7 @@ using Films.Core.DomainServices.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 
@@ -12,9 +13,11 @@ using NetTopologySuite.Geometries;
 namespace Films.Core.DomainServices.Migrations
 {
     [DbContext(typeof(FilmsDbContext))]
-    partial class FilmsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241030182658_RenameGenderToCategory")]
+    partial class RenameGenderToCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

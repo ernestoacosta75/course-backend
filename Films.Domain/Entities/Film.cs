@@ -17,6 +17,6 @@ public class Film
 
     // Navigation properties
     public List<FilmsActors> FilmsActors { get; set; } = [];
-    public List<FilmsGenders> FilmsGenders { get; set; } = [];
+    public List<FilmsCategories> FilmsCategories { get; set; } = [];
     public List<FilmsCinemas> FilmsCinemas { get; set; } = [];
 }

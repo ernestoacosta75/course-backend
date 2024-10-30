@@ -5,7 +5,7 @@ namespace Films.Core.DomainServices.UnitOfWorks
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<Gender> CategoryRepository { get; }
+        IRepository<Category> CategoryRepository { get; }
         IRepository<Actor> ActorRepository { get; }
         IRepository<Cinema> CinemaRepository { get; }
         IRepository<Film> FilmRepository { get; }

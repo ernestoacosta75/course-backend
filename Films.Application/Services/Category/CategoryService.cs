@@ -19,7 +19,7 @@ namespace Films.Core.Application.Services.Category
         [Log]
         public void AddCategory(CategoryCreationDto category)
         {
-            _unitOfWork.CategoryRepository.Add(_mapper.Map<Domain.Entities.Gender>(category));
+            _unitOfWork.CategoryRepository.Add(_mapper.Map<Domain.Entities.Category>(category));
             _unitOfWork.Save();
         }
 
@@ -44,9 +44,9 @@ namespace Films.Core.Application.Services.Category
             return _mapper.Map<CategoryDto>(categoryId); 
         }
 
-        public async Task RemoveCategory(CategoryDto genderDto)
+        public async Task RemoveCategory(CategoryDto CategoryDto)
         {
-            var categoryToDelete = _unitOfWork.CategoryRepository.GetById(genderDto.Id).Result;
+            var categoryToDelete = _unitOfWork.CategoryRepository.GetById(CategoryDto.Id).Result;
 
             if (categoryToDelete != null)
             {
