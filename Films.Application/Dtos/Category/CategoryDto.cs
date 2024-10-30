@@ -1,6 +1,6 @@
-﻿namespace Films.Core.Application.Dtos.Gender
+﻿namespace Films.Core.Application.Dtos.Category
 {
-    public class GenderDto
+    public class CategoryDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;

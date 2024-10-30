@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Films.Core.Application.Dtos.Actor;
+using Films.Core.Application.Dtos.Category;
 using Films.Core.Application.Dtos.Cinema;
 using Films.Core.Application.Dtos.Film;
-using Films.Core.Application.Dtos.Gender;
 using Films.Core.Domain.Entities;
 using NetTopologySuite.Geometries;
 
@@ -12,8 +12,8 @@ namespace course_backend.Utilities
     {
         public AutoMapperProfiles(GeometryFactory geometryFactory)
         {
-            CreateMap<Gender, GenderDto>().ReverseMap();
-            CreateMap<GenderCreationDto, Gender>().ReverseMap();
+            CreateMap<Gender, CategoryDto>().ReverseMap();
+            CreateMap<CategoryCreationDto, Gender>().ReverseMap();
             CreateMap<Actor, ActorDto>().ReverseMap();
             CreateMap<ActorCreationDto, Actor>()
                 .ForMember(m => m.Picture, options => options.Ignore())
