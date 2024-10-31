@@ -7,7 +7,7 @@ namespace Films.Core.Application.Dtos.Film;
 
 public class FilmCreationDto : FilmBaseDto
 {
-    public IFormFile Poster { get; set; }
+    public IFormFile FilmPoster { get; set; }
     [ModelBinder(BinderType = typeof(TypeBinder<List<int>>))]
     public List<Guid> CategoryIds { get; set; } = [];
     [ModelBinder(BinderType = typeof(TypeBinder<List<int>>))]

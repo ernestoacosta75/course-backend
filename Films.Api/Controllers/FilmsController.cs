@@ -52,15 +52,17 @@ public class FilmsController : ControllerBase
         return film;
     }
 
-    //[HttpPost]
-    //public ActionResult Post([FromForm] FilmCreationDto filmCreationDto)
-    //{
-    //    ArgumentNullException.ThrowIfNull(filmCreationDto, nameof(filmCreationDto));
+    [HttpPost]
+    public ActionResult Post([FromForm] FilmCreationDto filmCreationDto)
+    {
+        ArgumentNullException.ThrowIfNull(filmCreationDto, nameof(filmCreationDto));
 
-    //    _filmService.AddFilm(filmCreationDto);
+        Console.WriteLine("FilmCreationDto: " + filmCreationDto.ToString);
 
-    //    return NoContent();
-    //}
+        //_filmService.AddFilm(filmCreationDto);
+
+        return NoContent();
+    }
 
     [HttpPut]
     public async Task<ActionResult> Put([FromBody] FilmDto filmDto)

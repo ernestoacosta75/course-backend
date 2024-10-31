@@ -20,7 +20,7 @@ public class CategoriesController : ControllerBase
         _categoryService = genderService;
     }
 
-    [HttpGet]
+    [HttpGet("paginated")]
     public async Task<ActionResult<List<CategoryDto>>> GetAllCategoriesPaginated([FromQuery] PaginationDto paginationDto)
     {
         var queryable = _categoryService.GetAllCategories();

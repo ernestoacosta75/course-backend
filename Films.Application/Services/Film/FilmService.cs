@@ -29,9 +29,9 @@ public class FilmService : IFimService
         string pictureUrl = string.Empty;
         var film = _mapper.Map<Domain.Entities.Film>(filmCreationDto);
 
-        if (filmCreationDto.Poster != null)
+        if (filmCreationDto.FilmPoster != null)
         {
-            pictureUrl = await _localArchiveStorageService.SaveArchive(container, filmCreationDto.Poster);
+            pictureUrl = await _localArchiveStorageService.SaveArchive(container, filmCreationDto.FilmPoster);
         }
 
         WriteActorsOrden(film);
